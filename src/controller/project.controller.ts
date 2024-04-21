@@ -9,7 +9,7 @@ export class ProjectController {
 
 	constructor(private readonly projectService: ProjectService) {}
 
-	@Get(":id")
+	@Get("/:id")
 	public async findById(@Param() params: any, @Res() response: Response) {
 		const result = await this.projectService.findById(params.id);
 		response.set(HttpStatus.OK).send(result);
@@ -27,13 +27,13 @@ export class ProjectController {
 		response.set(HttpStatus.CREATED).send(result);
 	}
 
-	@Put(":id")
+	@Put("/:id")
 	public async update(@Param() params: any, @Body() projectRequestDto: ProjectRequestDto, @Res() response: Response) {
 		const result = await this.projectService.update(params.id, projectRequestDto);
 		response.set(HttpStatus.OK).send(result);
 	}
 
-	@Delete(":id")
+	@Delete("/:id")
 	public async delete(@Param() params: any, @Res() response: Response) {
 		await this.projectService.delete(params.id);
 		response.set(HttpStatus.NO_CONTENT).send({});

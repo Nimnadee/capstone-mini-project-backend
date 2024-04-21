@@ -8,7 +8,7 @@ export class StudentController {
 
 	constructor(private readonly studentService: StudentService) {}
 
-	@Get(":id")
+	@Get("/:id")
 	public async findById(@Param() params: any, @Res() response: Response) {
 		const result = await this.studentService.findById(params.id);
 		response.set(HttpStatus.OK).send(result);

@@ -2,6 +2,7 @@ import { Body, Controller, Get, HttpStatus, Param, Post, Res } from "@nestjs/com
 import { StudentService } from "../service/student.service";
 import { Response } from "express";
 import { StudentRequestDto } from "../model/dto/request/student.dto";
+//import {StudentResponseDto} from "../model/dto/response/student.dto";
 
 @Controller("/students")
 export class StudentController {

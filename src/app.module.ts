@@ -12,24 +12,29 @@ import { ProjectController } from "./controller/project.controller";
 import { ProjectService } from "./service/project.service";
 import { ProjectRepository } from "./repository/project.repository";
 import { ProjectMapper } from "./mapper/project.mapper";
+import {TechnologyController} from "./controller/technology.controller";
+import {TechnologyService} from "./service/technology.service";
+import {TechnologyMapper} from "./mapper/technology.mapper";
+import {TechnologyRepository} from "./repository/technology.repository";
+import {Technology, TechnologySchema} from "./model/schema/technology";
 
 @Module({
 	imports: [
 		ConfigModule.forRoot(),
 		MongooseModule.forRoot(process.env.MONGO_HOST, {
 			dbName: process.env.MONGO_DATABASE_NAME,
-			user: process.env.MONGO_USERNAME,
-			pass: process.env.MONGO_PASSWORD,
-			authSource: process.env.MONGO_AUTH_SOURCE
+
 		}),
 		MongooseModule.forFeature([
 			{name: Student.name, schema: StudentSchema},
-			{name: Project.name, schema: ProjectSchema}
+			{name: Project.name, schema: ProjectSchema},
+			{name: Technology.name,schema: TechnologySchema}
 		])
 	],
 	controllers: [
 		StudentController,
-		ProjectController
+		ProjectController,
+		TechnologyController
 	],
 	providers: [
 		StudentService,
@@ -37,7 +42,10 @@ import { ProjectMapper } from "./mapper/project.mapper";
 		StudentMapper,
 		ProjectService,
 		ProjectRepository,
-		ProjectMapper
+		ProjectMapper,
+		TechnologyService,
+		TechnologyRepository,
+		TechnologyMapper,
 	]
 })
 export class AppModule {}

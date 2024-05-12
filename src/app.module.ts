@@ -4,6 +4,7 @@ import { MongooseModule } from "@nestjs/mongoose";
 import * as process from "process";
 import { Student, StudentSchema } from "./model/schema/student";
 import { Project, ProjectSchema } from "./model/schema/project";
+import { Guide, GuideSchema } from "./model/schema/guide";
 import { StudentController } from "./controller/student.controller";
 import { StudentService } from "./service/student.service";
 import { StudentRepository } from "./repository/student.repository";
@@ -12,24 +13,28 @@ import { ProjectController } from "./controller/project.controller";
 import { ProjectService } from "./service/project.service";
 import { ProjectRepository } from "./repository/project.repository";
 import { ProjectMapper } from "./mapper/project.mapper";
+import { GuideController } from "./controller/guide.controller";
+import { GuideService } from "./service/guide.service";
+import { GuideRepository } from "./repository/guide.repository";
+import { GuideMapper } from "./mapper/guide.mapper";
 
 @Module({
 	imports: [
 		ConfigModule.forRoot(),
 		MongooseModule.forRoot(process.env.MONGO_HOST, {
 			dbName: process.env.MONGO_DATABASE_NAME,
-			user: process.env.MONGO_USERNAME,
-			pass: process.env.MONGO_PASSWORD,
-			authSource: process.env.MONGO_AUTH_SOURCE
+			
 		}),
 		MongooseModule.forFeature([
 			{name: Student.name, schema: StudentSchema},
-			{name: Project.name, schema: ProjectSchema}
+			{name: Project.name, schema: ProjectSchema},
+			{name: Guide.name, schema: GuideSchema}
 		])
 	],
 	controllers: [
 		StudentController,
-		ProjectController
+		ProjectController,
+		GuideController
 	],
 	providers: [
 		StudentService,
@@ -37,7 +42,10 @@ import { ProjectMapper } from "./mapper/project.mapper";
 		StudentMapper,
 		ProjectService,
 		ProjectRepository,
-		ProjectMapper
+		ProjectMapper,
+		GuideService,
+		GuideRepository,
+		GuideMapper
 	]
 })
 export class AppModule {}

@@ -4,6 +4,7 @@ import { MongooseModule } from "@nestjs/mongoose";
 import * as process from "process";
 import { Student, StudentSchema } from "./model/schema/student";
 import { Project, ProjectSchema } from "./model/schema/project";
+import { Feedback, FeedbackSchema } from "./model/schema/feedback";
 import { StudentController } from "./controller/student.controller";
 import { StudentService } from "./service/student.service";
 import { StudentRepository } from "./repository/student.repository";
@@ -12,6 +13,11 @@ import { ProjectController } from "./controller/project.controller";
 import { ProjectService } from "./service/project.service";
 import { ProjectRepository } from "./repository/project.repository";
 import { ProjectMapper } from "./mapper/project.mapper";
+import { FeedbackController } from "./controller/feedback.controller";
+import { FeedbackService } from "./service/feedback.service";
+import { FeedbackRepository } from "./repository/feedback.repository";
+import { FeedbackMapper } from "./mapper/feedback.mapper";
+
 
 @Module({
 	imports: [
@@ -21,12 +27,14 @@ import { ProjectMapper } from "./mapper/project.mapper";
 		}),
 		MongooseModule.forFeature([
 			{name: Student.name, schema: StudentSchema},
-			{name: Project.name, schema: ProjectSchema}
+			{name: Project.name, schema: ProjectSchema},
+			{name: Feedback.name, schema: FeedbackSchema}
 		])
 	],
 	controllers: [
 		StudentController,
-		ProjectController
+		ProjectController,
+		FeedbackController
 	],
 	providers: [
 		StudentService,
@@ -34,7 +42,10 @@ import { ProjectMapper } from "./mapper/project.mapper";
 		StudentMapper,
 		ProjectService,
 		ProjectRepository,
-		ProjectMapper
+		ProjectMapper,
+		FeedbackService,
+		FeedbackRepository,
+		FeedbackMapper
 	]
 })
 export class AppModule {}

@@ -17,24 +17,30 @@ import { GuideController } from "./controller/guide.controller";
 import { GuideService } from "./service/guide.service";
 import { GuideRepository } from "./repository/guide.repository";
 import { GuideMapper } from "./mapper/guide.mapper";
+import {TechnologyController} from "./controller/technology.controller";
+import {TechnologyService} from "./service/technology.service";
+import {TechnologyMapper} from "./mapper/technology.mapper";
+import {TechnologyRepository} from "./repository/technology.repository";
+import {Technology, TechnologySchema} from "./model/schema/technology";
 
 @Module({
 	imports: [
 		ConfigModule.forRoot(),
 		MongooseModule.forRoot(process.env.MONGO_HOST, {
-			dbName: process.env.MONGO_DATABASE_NAME,
-			
+			dbName: process.env.MONGO_DATABASE_NAME
 		}),
 		MongooseModule.forFeature([
 			{name: Student.name, schema: StudentSchema},
 			{name: Project.name, schema: ProjectSchema},
-			{name: Guide.name, schema: GuideSchema}
+			{name: Guide.name, schema: GuideSchema},
+			{name: Technology.name,schema: TechnologySchema}
 		])
 	],
 	controllers: [
 		StudentController,
 		ProjectController,
-		GuideController
+		GuideController,
+		TechnologyController
 	],
 	providers: [
 		StudentService,
@@ -45,7 +51,10 @@ import { GuideMapper } from "./mapper/guide.mapper";
 		ProjectMapper,
 		GuideService,
 		GuideRepository,
-		GuideMapper
+		GuideMapper,
+		TechnologyService,
+		TechnologyRepository,
+		TechnologyMapper,
 	]
 })
 export class AppModule {}

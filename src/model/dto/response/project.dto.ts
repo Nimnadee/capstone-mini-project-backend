@@ -1,4 +1,6 @@
 import { StudentResponseDto } from "./student.dto";
+import {TechnologyResponseDto} from "./technology.dto";
+
 
 export class ProjectResponseDto {
 
@@ -9,5 +11,8 @@ export class ProjectResponseDto {
 	public summary: string;
 
 	public student: StudentResponseDto;
+
+	public technologies:TechnologyResponseDto[];
+
 
 }

@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { SchemaTypes, Types } from "mongoose";
 import { Student } from "./student";
+import {Technology} from "./technology";
+
 
 
 @Schema({ collection: "project" })
@@ -17,8 +19,9 @@ export class Project {
 	@Prop({ required: true, type: SchemaTypes.ObjectId, ref: 'Student'})
 	public student: Student;
 
-	// @Prop({ required: false })
-	// public guide: Guide
+	@Prop({ required: false})
+	public technologies:Array<Technology>;
+
 }
 
 export const ProjectSchema = SchemaFactory.createForClass(Project);

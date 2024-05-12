@@ -1,4 +1,8 @@
 
+
+
+
+
 export class ProjectRequestDto {
 
 	public title: string;
@@ -6,5 +10,9 @@ export class ProjectRequestDto {
 	public summary: string;
 
 	public student: string;
+
+	public technology:string[];
+
+
 
 }

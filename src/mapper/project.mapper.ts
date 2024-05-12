@@ -4,12 +4,14 @@ import { StudentMapper } from "./student.mapper";
 import { ProjectRequestDto } from "../model/dto/request/project.dto";
 import { StudentRepository } from "../repository/student.repository";
 import { Injectable } from "@nestjs/common";
-
+import {TechnologyRepository} from "../repository/technology.repository";
+import {TechnologyMapper} from "./technology.mapper";
 
 @Injectable()
 export class ProjectMapper {
 
-	constructor(private readonly studentRepository: StudentRepository) {}
+	constructor(private readonly studentRepository: StudentRepository,
+				private readonly technologyRepository:TechnologyRepository) {}
 
 	public async projectToProjectResponseDto(project: Project) {
 		const projectResponseDto: ProjectResponseDto = new ProjectResponseDto();
@@ -17,19 +19,21 @@ export class ProjectMapper {
 		projectResponseDto.title =  project.title;
 		projectResponseDto.summary =  project.summary;
 		projectResponseDto.student =  StudentMapper.studentToStudentResponseDto(await this.studentRepository.find(project.student));
+		projectResponseDto.technologies = project.technologies.map(tech => TechnologyMapper.technologyToTechnologyResponseDto(tech));
 
 		return projectResponseDto;
 	}
 
-
-// In project.mapper.ts
-	public async  projectRequestDtoToProject(projectRequestDto: ProjectRequestDto) {
+	public async projectRequestDtoToProject(projectRequestDto: ProjectRequestDto) {
 		const project: Project = new Project();
 		project.title = projectRequestDto.title;
 		project.summary = projectRequestDto.summary;
 		project.student = await this.studentRepository.findById(projectRequestDto.student);
+		project.technologies = await Promise.all(projectRequestDto.technology.map(async (id) => {
+			const technology = await this.technologyRepository.findById(id);
+			return technology;
+		}));
 
 		return project;
-
 	}
 }

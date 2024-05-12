@@ -19,15 +19,8 @@ export class Project {
 	@Prop({ required: true, type: SchemaTypes.ObjectId, ref: 'Student'})
 	public student: Student;
 
-	@Prop({ required: true })
+	@Prop({ required: false})
 	public technologies:Array<Technology>;
-
-
-
-
-
-
-
 
 }
 

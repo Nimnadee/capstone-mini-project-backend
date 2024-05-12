@@ -1,10 +1,7 @@
 import { StudentResponseDto } from "./student.dto";
+import {TechnologyResponseDto} from "./technology.dto";
 
-enum techType {
-	LANGUAGE,
-	FRAMEWORK,
-	DATABASE,
-}
+
 export class ProjectResponseDto {
 
 	public id: string;
@@ -14,7 +11,8 @@ export class ProjectResponseDto {
 	public summary: string;
 
 	public student: StudentResponseDto;
-	public technologies:{technologyType:techType; technologyOption:string}[];
+
+	public technologies:TechnologyResponseDto[];
 
 
 }

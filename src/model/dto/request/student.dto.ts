@@ -1,4 +1,3 @@
-
 export class StudentRequestDto {
 
 	public firstName: string;

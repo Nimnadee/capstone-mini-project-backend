@@ -20,10 +20,6 @@ export class FeedbackRepository {
 		return this.feedbackModel.create(feedback);
 	}
 
-	public async update(id: string, feedback: Feedback): Promise<Feedback> {
-		return this.feedbackModel.findByIdAndUpdate(id, feedback, {new: true});
-	}
-
 	public async delete(id: string): Promise<Feedback>{
 		return this.feedbackModel.findByIdAndDelete(id)
 	}

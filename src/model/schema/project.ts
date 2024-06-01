@@ -2,8 +2,6 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { SchemaTypes, Types } from "mongoose";
 import { Student } from "./student";
 import {Technology} from "./technology";
-import { Guide } from "./guide";
-
 
 
 @Schema({ collection: "project" })
@@ -22,10 +20,6 @@ export class Project {
 
 	@Prop({ required: false})
 	public technologies:Array<Technology>;
-
-	@Prop({ required: false, type: SchemaTypes.ObjectId, ref: 'Guide'})
-	public guide: Guide;
-
 
 
 }

@@ -1,7 +1,6 @@
 import { StudentResponseDto } from "./student.dto";
 import {TechnologyResponseDto} from "./technology.dto";
 
-
 export class ProjectResponseDto {
 
 	public id: string;

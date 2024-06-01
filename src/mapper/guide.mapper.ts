@@ -6,7 +6,7 @@ import { Injectable } from "@nestjs/common";
 @Injectable()
 export class GuideMapper {
 
-	public guideToGuideResponseDto(guide: Guide) {
+	public static guideToGuideResponseDto(guide: Guide): GuideResponseDto {
 		const guideResponseDto: GuideResponseDto = new GuideResponseDto();
 		guideResponseDto.id = guide._id.toString();
 		guideResponseDto.firstName = guide.firstName;
@@ -19,12 +19,11 @@ export class GuideMapper {
         guideResponseDto.SocialMediaLinks = guide.SocialMediaLinks;
 
 
-
 		return guideResponseDto;
 	}
 
-	public guideRequestDtoToGuide(guideRequestDto: GuideRequestDto) {
-		const guide: Guide = new Guide();
+	public static guideRequestDtoToGuide(guideRequestDto: GuideRequestDto):Guide {
+		const guide = new Guide();
 		guide.firstName = guideRequestDto.firstName;
 		guide.lastName = guideRequestDto.lastName;
 		guide.email = guideRequestDto.email;

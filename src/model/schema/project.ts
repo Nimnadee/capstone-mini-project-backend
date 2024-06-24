@@ -16,7 +16,7 @@ export class Project {
 	@Prop({ required: true })
 	public summary: string;
 
-	@Prop({ required: true, type: SchemaTypes.ObjectId, ref: 'Student'})
+	@Prop({ required:true, type: SchemaTypes.ObjectId, ref: 'Student'})
 	public student: Student;
 
 	@Prop({ required: false})

@@ -1,8 +1,4 @@
 
-
-
-
-
 export class ProjectRequestDto {
 
 	public title: string;

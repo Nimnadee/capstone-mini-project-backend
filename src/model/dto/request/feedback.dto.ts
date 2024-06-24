@@ -6,10 +6,4 @@ export class FeedbackRequestDto {
 
 	public rating: number;
 
-	
-
-	
-
-	//Date & Rating
-
 }

@@ -12,8 +12,4 @@ export class FeedbackResponseDto {
 	public rating:number;
 
 	public student: StudentResponseDto;
-
-    //public guide: GtudentResponseDto;
-
-    //Date and Rating 
 }

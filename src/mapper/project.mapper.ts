@@ -29,11 +29,24 @@ export class ProjectMapper {
 		project.title = projectRequestDto.title;
 		project.summary = projectRequestDto.summary;
 		project.student = await this.studentRepository.findById(projectRequestDto.student);
-		project.technologies = await Promise.all(projectRequestDto.technology.map(async (id) => {
-			const technology = await this.technologyRepository.findById(id);
-			return technology;
-		}));
+		if (projectRequestDto.technology && Array.isArray(projectRequestDto.technology)) {
+			project.technologies = await Promise.all(projectRequestDto.technology.map(async (id) => {
+			  const technology = await this.technologyRepository.findById(id);
+			  return technology;
+			}));
+		  } else {
+			// Handle the case where technology is not an array or is undefined
+			project.technologies = []; // Or handle it as appropriate for your application
+			console.warn('Technology data is invalid or not provided');
+		  }
+	  
+		  return project;
+		}
+	// 	project.technologies = await Promise.all(projectRequestDto.technology.map(async (id) => {
+	// 		const technology = await this.technologyRepository.findById(id);
+	// 		return technology;
+	// 	}));
 
-		return project;
-	}
+	// 	return project;
+	// }
 }

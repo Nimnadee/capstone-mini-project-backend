@@ -16,7 +16,8 @@ export class FeedbackMapper {
 		const feedbackResponseDto: FeedbackResponseDto = new FeedbackResponseDto();
 		feedbackResponseDto.id =  feedback._id.toString();
 		feedbackResponseDto.content =  feedback.content;
-		feedbackResponseDto.createdAt = feedback.createdAt; 
+		feedbackResponseDto.createdAt = feedback.createdAt;
+		feedbackResponseDto.rating = feedback.rating; 
 		feedbackResponseDto.student =  StudentMapper.studentToStudentResponseDto(await this.studentRepository.find(feedback.student));
 
 		return feedbackResponseDto;

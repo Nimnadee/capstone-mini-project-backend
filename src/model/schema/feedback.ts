@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { SchemaTypes, Types } from "mongoose";
 import { Student } from "./student";
-//import Guide
+
 
 
 @Schema({ collection: "feedback" })
@@ -18,13 +18,9 @@ export class Feedback {
     @Prop({ default: Date.now }) 
     public createdAt: Date;
  
-	@Prop({ required: true })
+	@Prop({ required: true, min: 1, max: 5 })
      public rating: number;
 
-    
-
-	// @Prop({ required: false })
-	// public guide: Guide
 }
 
 export const FeedbackSchema = SchemaFactory.createForClass(Feedback);

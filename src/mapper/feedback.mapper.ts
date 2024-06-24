@@ -18,7 +18,7 @@ export class FeedbackMapper {
 		feedbackResponseDto.content =  feedback.content;
 		feedbackResponseDto.createdAt = feedback.createdAt; 
 		feedbackResponseDto.student =  StudentMapper.studentToStudentResponseDto(await this.studentRepository.find(feedback.student));
-
+		feedbackResponseDto.rating = feedback.rating;
 		return feedbackResponseDto;
 	}
 

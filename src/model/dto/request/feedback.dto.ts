@@ -6,4 +6,6 @@ export class FeedbackRequestDto {
 
 	public rating: number;
 
+	public guide: string;
+
 }

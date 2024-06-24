@@ -4,7 +4,6 @@ import { Student } from "./student";
 import {Technology} from "./technology";
 
 
-
 @Schema({ collection: "project" })
 export class Project {
 
@@ -21,6 +20,7 @@ export class Project {
 
 	@Prop({ required: false})
 	public technologies:Array<Technology>;
+
 
 }
 

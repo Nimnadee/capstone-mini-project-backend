@@ -25,6 +25,7 @@
     "@nestjs/mongoose": "^10.0.6",
     "@nestjs/platform-express": "^10.0.0",
     "cors": "^2.8.5",
+    "install": "^0.13.0",
     "mongoose": "^8.4.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"

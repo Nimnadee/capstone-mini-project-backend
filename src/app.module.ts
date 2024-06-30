@@ -32,10 +32,15 @@ import {TechnologyService} from "./service/technology.service";
 import {TechnologyMapper} from "./mapper/technology.mapper";
 import {TechnologyRepository} from "./repository/technology.repository";
 import {Technology, TechnologySchema} from "./model/schema/technology";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
 	imports: [
-		ConfigModule.forRoot(),
+		ConfigModule.forRoot(
+			{
+			envFilePath:'.env',
+			isGlobal:true 
+			}),
 		MongooseModule.forRoot(process.env.MONGO_HOST, {
 			dbName: process.env.MONGO_DATABASE_NAME
 		}),
@@ -46,7 +51,8 @@ import {Technology, TechnologySchema} from "./model/schema/technology";
 			{name: Feedback.name, schema: FeedbackSchema},
 			{name: Guide.name, schema: GuideSchema},
 			{name: Technology.name,schema: TechnologySchema}
-		])
+		]),
+		AuthModule,
 	],
 	controllers: [
 		StudentController,

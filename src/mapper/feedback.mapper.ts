@@ -21,7 +21,7 @@ export class FeedbackMapper {
 		feedbackResponseDto.createdAt = feedback.createdAt; 
 		feedbackResponseDto.rating = feedback.rating;
 		feedbackResponseDto.student =  StudentMapper.studentToStudentResponseDto(await this.studentRepository.find(feedback.student));
-		feedbackResponseDto.guide =  GuideMapper.guideToGuideResponseDto(await this.guideRepository.find(feedback.guide));
+		// feedbackResponseDto.guide =  GuideMapper.guideToGuideResponseDto(await this.guideRepository.find(feedback.guide));
 
 		return feedbackResponseDto;
 	}
@@ -30,7 +30,7 @@ export class FeedbackMapper {
 		const feedback: Feedback = new Feedback();
 		feedback.content = feedbackRequestDto.content;
 		feedback.student = await this.studentRepository.findById(feedbackRequestDto.student);
-        feedback.guide = await this.guideRepository.findById(feedbackRequestDto.guide);
+        // feedback.guide = await this.guideRepository.findById(feedbackRequestDto.guide);
 		feedback.rating = feedbackRequestDto.rating;
 
 		return feedback;

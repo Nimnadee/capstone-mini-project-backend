@@ -28,11 +28,11 @@ export class GuideMapper {
 		guide.lastName = guideRequestDto.lastName;
 		guide.email = guideRequestDto.email;
 		guide.password = guideRequestDto.password;
-        guide.ProfilePic = guideRequestDto.ProfilePic;
+        guide.ProfilePic = guideRequestDto.profilePic;
         guide.job = guideRequestDto.job;
         guide.about = guideRequestDto.about;
         guide.milestones = guideRequestDto.milestones;
-        guide.SocialMediaLinks = guideRequestDto.SocialMediaLinks;
+        guide.SocialMediaLinks = guideRequestDto.socialMediaLinks;
 
 		return guide;
 	}

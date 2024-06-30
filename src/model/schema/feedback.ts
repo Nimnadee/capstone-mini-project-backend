@@ -19,8 +19,8 @@ export class Feedback {
 	@Prop({ required: true, min: 1, max: 5 })
      public rating: number;
 
-    @Prop({ required: true , type: SchemaTypes.ObjectId, ref: 'Guide'})
-    public guide: Guide;
+    // @Prop({ required: true , type: SchemaTypes.ObjectId, ref: 'Guide'})
+    // public guide: Guide;
 }
 
 export const FeedbackSchema = SchemaFactory.createForClass(Feedback);

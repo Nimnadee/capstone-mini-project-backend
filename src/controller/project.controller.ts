@@ -1,10 +1,12 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseGuards } from "@nestjs/common";
 import { Response } from "express";
 import { ProjectService } from "../service/project.service";
 import { ProjectRequestDto } from "../model/dto/request/project.dto";
+import { AuthGuard } from "@nestjs/passport";
 
 
 @Controller("/projects")
+@UseGuards(AuthGuard())
 export class ProjectController {
 
 	constructor(private readonly projectService: ProjectService) {}

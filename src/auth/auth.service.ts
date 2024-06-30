@@ -5,13 +5,14 @@ import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import { StudentRequestDto } from '../model/dto/request/student.dto';
 import { GuideRequestDto } from '../model/dto/request/guide.dto';
-import { LoginDto } from '../auth/dto/login';
+import { LoginDto } from './dto/login';
 import { User, UserDocument } from '../auth/schema/user.schem';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(User.name) private userModel: Model<UserDocument>,
+    @InjectModel(User.name) 
+    private userModel: Model<UserDocument>,
     private jwtService: JwtService,
   ) {}
 

@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
+import { AuthController } from '../auth/auth.controller';
 import { AuthService } from './auth.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { StudentSchema } from '../model/schema/student';
-import { PassportModule } from '@nestjs/passport';
+import {  PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { JwtStrategy } from './Jwt.strategy';
+// import { JwtStrategy } from './Jwt.strategy';
 import { UserSchema } from './schema/user.schem';
-import { RolesGuard } from './role.guard';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth.guard';
+ 
 
 
 @Module({
@@ -28,7 +30,16 @@ import { RolesGuard } from './role.guard';
     MongooseModule.forFeature([{name:'User' , schema: UserSchema}])
   ],
   controllers: [AuthController],
-  providers: [AuthService,JwtStrategy,RolesGuard],
-  exports:[JwtStrategy, PassportModule]
+  providers: [
+              AuthService,
+            //   JwtStrategy,
+              {
+                provide: APP_GUARD,
+                useClass: AuthGuard,
+              } 
+            ],
+  exports:[
+            // JwtStrategy,
+            PassportModule]
 })
 export class AuthModule {}

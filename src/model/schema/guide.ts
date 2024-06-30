@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { SchemaTypes, Types } from "mongoose";
+import {Technology} from "./technology";
 
 @Schema({ collection: "guide" })
 export class Guide {
@@ -32,6 +33,9 @@ export class Guide {
 
 	@Prop({ required: false })
 	public SocialMediaLinks: string;
+
+	@Prop({ required: true})
+	public technologies:Array<Technology>;
 
 }
 export const GuideSchema = SchemaFactory.createForClass(Guide);

@@ -22,13 +22,13 @@ export class GuideService {
 	}
 
 	public async create(guideRequestDto: GuideRequestDto): Promise<GuideResponseDto> {
-		let guide: Guide = this.guideMapper.guideRequestDtoToGuide(guideRequestDto);
+		let guide: Guide = await this.guideMapper.guideRequestDtoToGuide(guideRequestDto);
 		guide = await this.guideRepository.create(guide);
 		return this.guideMapper.guideToGuideResponseDto(guide);
 	}
 
 	public async update(id: string, guideRequestDto: GuideRequestDto): Promise<GuideResponseDto> {
-		let guide: Guide = this.guideMapper.guideRequestDtoToGuide(guideRequestDto);
+		let guide: Guide = await this.guideMapper.guideRequestDtoToGuide(guideRequestDto);
 		guide = await this.guideRepository.update(id, guide);
 		return this.guideMapper.guideToGuideResponseDto(guide);
 	}

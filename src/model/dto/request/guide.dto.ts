@@ -18,4 +18,6 @@ export class GuideRequestDto {
 
     public SocialMediaLinks: string;
 
+    public technology:string[];
+
 }

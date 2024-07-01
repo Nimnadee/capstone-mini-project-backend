@@ -4,7 +4,6 @@ import { Student } from "./student";
 import {Technology} from "./technology";
 
 
-
 @Schema({ collection: "project" })
 export class Project {
 
@@ -16,11 +15,12 @@ export class Project {
 	@Prop({ required: true })
 	public summary: string;
 
-	@Prop({ required: true, type: SchemaTypes.ObjectId, ref: 'Student'})
+	@Prop({ required:true, type: SchemaTypes.ObjectId, ref: 'Student'})
 	public student: Student;
 
 	@Prop({ required: false})
 	public technologies:Array<Technology>;
+
 
 }
 

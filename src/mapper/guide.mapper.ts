@@ -10,7 +10,7 @@ import {TechnologyMapper} from "./technology.mapper";
 export class GuideMapper {
 	constructor(private readonly technologyRepository:TechnologyRepository) {}
 
-	public guideToGuideResponseDto(guide: Guide) {
+	public guideToGuideResponseDto(guide: Guide): GuideResponseDto {
 		const guideResponseDto: GuideResponseDto = new GuideResponseDto();
 		guideResponseDto.id = guide._id.toString();
 		guideResponseDto.firstName = guide.firstName;
@@ -25,7 +25,6 @@ export class GuideMapper {
 
 
 
-
 		return guideResponseDto;
 	}
 
@@ -35,14 +34,13 @@ export class GuideMapper {
 		guide.lastName = guideRequestDto.lastName;
 		guide.email = guideRequestDto.email;
 		guide.password = guideRequestDto.password;
-        guide.ProfilePic = guideRequestDto.ProfilePic;
+        guide.ProfilePic = guideRequestDto.profilePic;
         guide.job = guideRequestDto.job;
         guide.about = guideRequestDto.about;
         guide.milestones = guideRequestDto.milestones;
-        guide.SocialMediaLinks = guideRequestDto.SocialMediaLinks;
+        guide.SocialMediaLinks = guideRequestDto.socialMediaLinks;
 		guide.technologies = await Promise.all(guideRequestDto.technology.map(async (id) => {
-			const technology = await this.technologyRepository.findById(id);
-			return technology;
+			return  await this.technologyRepository.findById(id);
 		}));
 
 		return guide;

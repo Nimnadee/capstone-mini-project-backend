@@ -1,5 +1,5 @@
 import { StudentResponseDto } from "./student.dto";
-//import { GuideResponseDto } from "./guide.dto";
+import { GuideResponseDto } from "./guide.dto";
 
 export class FeedbackResponseDto {
 
@@ -13,7 +13,6 @@ export class FeedbackResponseDto {
 
 	public student: StudentResponseDto;
 
-    //public guide: GtudentResponseDto;
-
-    //Date and Rating 
+    public guide: GuideResponseDto;
+	    
 }

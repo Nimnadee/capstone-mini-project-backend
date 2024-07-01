@@ -8,8 +8,9 @@ import { GuideRequestDto } from "../model/dto/request/guide.dto";
 @Injectable()
 export class GuideService {
 
+
 	constructor(private readonly guideRepository: GuideRepository,
-        private readonly guideMapper: GuideMapper) {}
+				private readonly guideMapper: GuideMapper) {}
 
 	public async findById(id: string): Promise<GuideResponseDto> {
 		const guide: Guide = await this.guideRepository.findById(id);
@@ -17,8 +18,8 @@ export class GuideService {
 	}
 
 	public async findAll(): Promise<GuideResponseDto[]> {
-		const guides: Guide[] = await this.guideRepository.findAll();
-		return guides.map(g => this.guideMapper.guideToGuideResponseDto(g))
+		const guide: Guide[] = await this.guideRepository.findAll();
+		return guide.map(g => this.guideMapper.guideToGuideResponseDto(g))
 	}
 
 	public async create(guideRequestDto: GuideRequestDto): Promise<GuideResponseDto> {
@@ -32,8 +33,6 @@ export class GuideService {
 		guide = await this.guideRepository.update(id, guide);
 		return this.guideMapper.guideToGuideResponseDto(guide);
 	}
-
-
    
     
 }

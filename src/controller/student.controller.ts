@@ -1,9 +1,8 @@
-import { Body, Controller, Get, HttpStatus, Param, Post, Res } from "@nestjs/common";
+import { Body, Controller, Get, HttpStatus, Param, Post, Res, UseGuards } from "@nestjs/common";
 import { StudentService } from "../service/student.service";
 import { Response } from "express";
 import { StudentRequestDto } from "../model/dto/request/student.dto";
-//import {StudentResponseDto} from "../model/dto/response/student.dto";
-
+ 
 @Controller("/students")
 export class StudentController {
 
@@ -14,7 +13,8 @@ export class StudentController {
 		const result = await this.studentService.findById(params.id);
 		response.set(HttpStatus.OK).send(result);
 	}
-
+    
+	 
 	@Get()
 	public async findAll(@Res() response: Response) {
 		const result = await this.studentService.findAll();

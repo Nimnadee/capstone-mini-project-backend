@@ -2,8 +2,10 @@ import { Body, Controller, Get, HttpStatus, Param, Post, Put, Res } from "@nestj
 import { GuideService } from "../service/guide.service";
 import { Response } from "express";
 import { GuideRequestDto } from "../model/dto/request/guide.dto";
+import { Public } from "src/auth/auth.decorator";
 
 @Controller("/guides")
+@Public()
 export class GuideController {
 
 	constructor(private readonly guideService: GuideService) {}

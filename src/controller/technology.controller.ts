@@ -2,9 +2,11 @@ import {TechnologyService} from "../service/technology.service";
 import {Body, Controller, Get, HttpStatus, Post, Res} from "@nestjs/common";
 import {Response} from "express";
 import {TechnologyRequestDto} from "../model/dto/request/technology.dto";
+import { Public } from "src/auth/auth.decorator";
 
 
 @Controller("/technology")
+@Public()
 export class TechnologyController {
     constructor(private technologyService: TechnologyService) {}
 

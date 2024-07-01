@@ -2,8 +2,11 @@ import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from
 import { Response } from "express";
 import { CategoryService } from "../service/category.service";
 import { CategoryRequestDto } from "../model/dto/request/category.dto";
+import { Public } from "src/auth/auth.decorator";
+
 
 @Controller("/categories")
+@Public()
 export class CategoryController {
 
 	constructor(private readonly categoryService: CategoryService) {}

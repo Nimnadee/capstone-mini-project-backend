@@ -2,8 +2,10 @@ import { Body, Controller, Get, HttpStatus, Param, Post, Res, UseGuards } from "
 import { StudentService } from "../service/student.service";
 import { Response } from "express";
 import { StudentRequestDto } from "../model/dto/request/student.dto";
+import { Public } from "src/auth/auth.decorator";
  
 @Controller("/students")
+@Public()
 export class StudentController {
 
 	constructor(private readonly studentService: StudentService) {}

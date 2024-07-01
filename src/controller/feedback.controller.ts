@@ -2,9 +2,11 @@ import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from
 import { Response } from "express";
 import { FeedbackService } from "../service/feedback.service";
 import { FeedbackRequestDto } from "../model/dto/request/feedback.dto";
+import { Public } from "src/auth/auth.decorator";
 
 
 @Controller("/feedbacks")
+@Public()
 export class FeedbackController {
 
 	constructor(private readonly feedbackService: FeedbackService) {}

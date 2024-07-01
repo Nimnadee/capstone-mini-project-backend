@@ -1,6 +1,7 @@
 // user.schema.ts
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Technology } from 'src/model/schema/technology';
 
 export type UserDocument = User & Document;
 
@@ -35,6 +36,9 @@ export class User {
   
   @Prop() 
   socialMediaLinks?: string;
+
+  @Prop({ required: true})
+	public technologies:Array<Technology>;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

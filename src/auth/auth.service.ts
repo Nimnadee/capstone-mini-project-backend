@@ -8,6 +8,8 @@ import { LoginDto } from './dto/login';
 import { Student } from 'src/model/schema/student';
 import { Guide } from 'src/model/schema/guide';
 
+//     const token = this.jwtService.sign({ id: user._id });
+//     return { token };
  
 @Injectable()
 export class AuthService {
@@ -22,9 +24,13 @@ export class AuthService {
 
   async signUpStudent(signUpDto: StudentRequestDto ): Promise<{ message: string; token?: string }> {
     const { email, password } = signUpDto;
-    const existingUser = await this.studentModel.findOne({ email });
-    if (existingUser) {
-      return { message: 'You are already signed up. Please log in.' };
+    const existingUserasGuide = await this.guideModel.findOne({ email });
+    const existingUserasStudent = await this.studentModel.findOne({ email });
+    if (existingUserasGuide) {
+      return { message: 'You are already signed up as a guide. Please log in!' };
+    }
+    if (existingUserasStudent) {
+      return { message: 'You are already signed up as a student. Please log in as a guide!' };
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -53,9 +59,13 @@ export class AuthService {
 
   async signUpGuide(signUpDto: StudentRequestDto ): Promise<{ message: string; token?: string }> {
     const { email, password } = signUpDto;
-    const existingUser = await this.guideModel.findOne({ email });
-    if (existingUser) {
-      return { message: 'You are already signed up. Please log in.' };
+    const existingUserasGuide = await this.guideModel.findOne({ email });
+    const existingUserasStudent = await this.studentModel.findOne({ email });
+    if (existingUserasGuide) {
+      return { message: 'You are already signed up as a guide. Please log in!' };
+    }
+    if (existingUserasStudent) {
+      return { message: 'You are already signed up as a student. Please log in as a student!' };
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { SchemaTypes, Types } from "mongoose";
+import { Types } from "mongoose";
 import {Technology} from "./technology";
 
 @Schema({ collection: "guide" })

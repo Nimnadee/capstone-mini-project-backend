@@ -4,48 +4,81 @@ import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import { StudentRequestDto } from '../model/dto/request/student.dto';
-import { GuideRequestDto } from '../model/dto/request/guide.dto';
 import { LoginDto } from './dto/login';
-import { User, UserDocument } from '../auth/schema/user.schem';
+import { Student } from 'src/model/schema/student';
+import { Guide } from 'src/model/schema/guide';
 
+ 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(User.name) 
-    private userModel: Model<UserDocument>,
+    @InjectModel(Student.name) 
+    private studentModel: Model<Student>,
     private jwtService: JwtService,
+
+    @InjectModel(Guide.name)
+    private guideModel: Model<Guide>
   ) {}
 
-  async signUp(signUpDto: StudentRequestDto | GuideRequestDto): Promise<{ message: string; token?: string }> {
+  async signUpStudent(signUpDto: StudentRequestDto ): Promise<{ message: string; token?: string }> {
     const { email, password } = signUpDto;
-    const existingUser = await this.userModel.findOne({ email });
+    const existingUser = await this.studentModel.findOne({ email });
     if (existingUser) {
       return { message: 'You are already signed up. Please log in.' };
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new this.userModel({ ...signUpDto, password: hashedPassword });
+    const student = new this.studentModel({ ...signUpDto, password: hashedPassword });
 
-    await user.save();
-    const token = this.jwtService.sign({ id: user._id, role: user.role });
-
-    return { message: 'Signup successful', token };
+    await student.save();
+    return { message: 'Signup successful, you can login now!' };
   }
 
-  async login(loginDto: LoginDto): Promise<{ token: string }> {
+  async loginStudent(loginDto: LoginDto): Promise<{ token: string }> {
     const { email, password } = loginDto;
-    const user = await this.userModel.findOne({ email });
+    const student = await this.studentModel.findOne({ email });
 
-    if (!user) {
+    if (!student) {
       throw new UnauthorizedException('Invalid email or password');
     }
 
-    const isPasswordMatched = await bcrypt.compare(password, user.password);
+    const isPasswordMatched = await bcrypt.compare(password, student.password);
     if (!isPasswordMatched) {
       throw new UnauthorizedException('Invalid email or password');
     }
 
-    const token = this.jwtService.sign({ id: user._id, role: user.role });
+    const token = this.jwtService.sign({ id: student._id });
+    return { token };
+  }
+
+  async signUpGuide(signUpDto: StudentRequestDto ): Promise<{ message: string; token?: string }> {
+    const { email, password } = signUpDto;
+    const existingUser = await this.guideModel.findOne({ email });
+    if (existingUser) {
+      return { message: 'You are already signed up. Please log in.' };
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const guide = new this.guideModel({ ...signUpDto, password: hashedPassword });
+
+    await guide.save();
+    return { message: 'Signup successful, you can login now!' };
+  }
+
+  async loginGuide(loginDto: LoginDto): Promise<{ token: string }> {
+    const { email, password } = loginDto;
+    const guide = await this.guideModel.findOne({ email });
+
+    if (!guide) {
+      throw new UnauthorizedException('Invalid email or password');
+    }
+
+    const isPasswordMatched = await bcrypt.compare(password, guide.password);
+    if (!isPasswordMatched) {
+      throw new UnauthorizedException('Invalid email or password');
+    }
+
+    const token = this.jwtService.sign({ id: guide._id });
     return { token };
   }
 }

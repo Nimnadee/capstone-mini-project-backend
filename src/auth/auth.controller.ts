@@ -12,19 +12,25 @@ export class AuthController {
   @Public()
   @Post('/signup/student')
   signUpStudent(@Body() signUpDto: StudentRequestDto) {
-    return this.authService.signUp({ ...signUpDto, role: 'student' });
+    return this.authService.signUpStudent({ ...signUpDto  });
   }
-  
+   
   @Public()
   @Post('/signup/guide')
   signUpGuide(@Body() signUpDto: GuideRequestDto) {
-    return this.authService.signUp({ ...signUpDto, role: 'guide' });
+      return this.authService.signUpGuide({ ...signUpDto });
   }
 
   @Public()
-  @Post('/login')
-  login(@Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto);
+  @Post('/login/student')
+  loginStudent(@Body() loginDto: LoginDto) {
+    return this.authService.loginStudent(loginDto);
+  }
+
+  @Public()
+  @Post('/login/guide')
+  loginGuide(@Body() loginDto: LoginDto) {
+    return this.authService.loginGuide(loginDto);
   }
 
   @Get('/profile')

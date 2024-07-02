@@ -5,7 +5,6 @@ import { GuideRequestDto } from "../model/dto/request/guide.dto";
 import { Public } from "src/auth/auth.decorator";
 
 @Controller("/guides")
-@Public()
 export class GuideController {
 
 	constructor(private readonly guideService: GuideService) {}

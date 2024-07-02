@@ -6,10 +6,9 @@ import { StudentSchema } from '../model/schema/student';
 import {  PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-// import { JwtStrategy } from './Jwt.strategy';
-import { UserSchema } from './schema/user.schem';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
+import { GuideSchema } from 'src/model/schema/guide';
  
 
 
@@ -27,19 +26,19 @@ import { AuthGuard } from './auth.guard';
         }
       }
     }),
-    MongooseModule.forFeature([{name:'User' , schema: UserSchema}])
+    MongooseModule.forFeature([{name:'Student' , schema: StudentSchema},{name:'Guide' , schema: GuideSchema}])
   ],
   controllers: [AuthController],
   providers: [
               AuthService,
-            //   JwtStrategy,
+            
               {
                 provide: APP_GUARD,
                 useClass: AuthGuard,
               } 
             ],
-  exports:[
-            // JwtStrategy,
-            PassportModule]
+  exports:[            
+            PassportModule
+          ]
 })
 export class AuthModule {}

@@ -1,4 +1,5 @@
 import {TechnologyResponseDto} from "./technology.dto";
+import { CategoryResponseDto } from "./category.dto";
 
 export class GuideResponseDto {
 
@@ -19,6 +20,8 @@ export class GuideResponseDto {
     public milestones: string;
 
     public SocialMediaLinks: string;
+
+	public category: CategoryResponseDto;
 
     public technologies:TechnologyResponseDto[];
 

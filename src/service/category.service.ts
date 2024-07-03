@@ -9,38 +9,32 @@ import { CategoryRequestDto } from "../model/dto/request/category.dto";
 @Injectable()
 export class CategoryService {
 
-	constructor(private readonly categoryRepository: CategoryRepository,
-	            private readonly categoryMapper: CategoryMapper) {}
+	constructor(private readonly categoryRepository: CategoryRepository) {}
 
 	public async findById(id: string): Promise<CategoryResponseDto> {
 		const category: Category = await this.categoryRepository.findById(id);
-		return await this.categoryMapper.categoryToCategoryResponseDto(category);
+		return CategoryMapper.categoryToCategoryResponseDto(category);
 	}
 
 	public async findAll(): Promise<CategoryResponseDto[]> {
 		const categories: Category[] = await this.categoryRepository.findAll();
-		const categoryResponseDtos: CategoryResponseDto[] = [];
-
-		for (const p of categories) {
-			categoryResponseDtos.push(await this.categoryMapper.categoryToCategoryResponseDto(p));
-		}
-		return categoryResponseDtos;
+        return categories.map(c => CategoryMapper.categoryToCategoryResponseDto(c));
 	}
 
 	public async create(categoryRequestDto: CategoryRequestDto): Promise<CategoryResponseDto> {
-		let category: Category = await this.categoryMapper.categoryRequestDtoToCategory(categoryRequestDto);
+		let category: Category = CategoryMapper.categoryRequestDtoToCategory(categoryRequestDto);
 		category = await this.categoryRepository.create(category);
-		return this.categoryMapper.categoryToCategoryResponseDto(category);
+		return CategoryMapper.categoryToCategoryResponseDto(category);
 	}
 
 	public async update(id: string, categoryRequestDto: CategoryRequestDto): Promise<CategoryResponseDto> {
-		let category: Category = await this.categoryMapper.categoryRequestDtoToCategory(categoryRequestDto);
+		let category: Category = CategoryMapper.categoryRequestDtoToCategory(categoryRequestDto);
 		category = await this.categoryRepository.update(id, category);
-		return this.categoryMapper.categoryToCategoryResponseDto(category);
+		return CategoryMapper.categoryToCategoryResponseDto(category);
 	}
 
 	public async delete(id: string): Promise<CategoryResponseDto> {
 		const category: Category = await this.categoryRepository.delete(id);
-		return this.categoryMapper.categoryToCategoryResponseDto(category);
+		return CategoryMapper.categoryToCategoryResponseDto(category);
 	}
 }

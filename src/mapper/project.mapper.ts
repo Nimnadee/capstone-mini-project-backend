@@ -6,11 +6,14 @@ import { StudentRepository } from "../repository/student.repository";
 import { Injectable } from "@nestjs/common";
 import {TechnologyRepository} from "../repository/technology.repository";
 import {TechnologyMapper} from "./technology.mapper";
+import { CategoryMapper } from "./category.mapper";
+import { CategoryRepository } from "src/repository/category.repository";
 
 @Injectable()
 export class ProjectMapper {
 
 	constructor(private readonly studentRepository: StudentRepository,
+		        private readonly categoryRepository: CategoryRepository,
 				private readonly technologyRepository:TechnologyRepository) {}
 
 	public async projectToProjectResponseDto(project: Project) {
@@ -19,6 +22,7 @@ export class ProjectMapper {
 		projectResponseDto.title =  project.title;
 		projectResponseDto.summary =  project.summary;
 		projectResponseDto.student =  StudentMapper.studentToStudentResponseDto(await this.studentRepository.find(project.student));
+		projectResponseDto.category = CategoryMapper.categoryToCategoryResponseDto(await this.categoryRepository.find(project.category));
 		projectResponseDto.technologies = project.technologies.map(tech => TechnologyMapper.technologyToTechnologyResponseDto(tech));
 
 		return projectResponseDto;
@@ -29,6 +33,7 @@ export class ProjectMapper {
 		project.title = projectRequestDto.title;
 		project.summary = projectRequestDto.summary;
 		project.student = await this.studentRepository.findById(projectRequestDto.student);
+		project.category = await this.categoryRepository.findById(projectRequestDto.category);
 		if (projectRequestDto.technology && Array.isArray(projectRequestDto.technology)) {
 			project.technologies = await Promise.all(projectRequestDto.technology.map(async (id) => {
 			  const technology = await this.technologyRepository.findById(id);

@@ -6,7 +6,7 @@ import { Injectable } from "@nestjs/common";
 @Injectable()
 export class CategoryMapper {
 
-	public async categoryToCategoryResponseDto(category: Category) {
+	public static categoryToCategoryResponseDto(category: Category) {
 		const categoryResponseDto: CategoryResponseDto = new CategoryResponseDto();
 		categoryResponseDto.id =  category._id.toString();
 
@@ -15,7 +15,7 @@ export class CategoryMapper {
 		return categoryResponseDto;
 	}
 
-	public async categoryRequestDtoToCategory(categoryRequestDto: CategoryRequestDto) {
+	public static categoryRequestDtoToCategory(categoryRequestDto: CategoryRequestDto) {
 		const category: Category = new Category();
 		category.categoryName = categoryRequestDto.categoryName;
 		

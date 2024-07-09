@@ -5,9 +5,13 @@ import { Category } from "../model/schema/category";
 
 @Injectable()
 export class CategoryRepository {
-
+	
 	public constructor(@InjectModel(Category.name) private readonly categoryModel: Model<Category>) {}
 
+	public async find(category: Category): Promise<Category> {
+		return this.categoryModel.findById(category._id);
+	}
+	
 	public async findById(id: string): Promise<Category> {
 		return this.categoryModel.findById(id);
 	}
@@ -25,6 +29,6 @@ export class CategoryRepository {
 	}
 
 	public async delete(id: string): Promise<Category>{
-		return this.categoryModel.findByIdAndDelete(id)
+		return this.categoryModel.findByIdAndDelete(id);
 	}
 }

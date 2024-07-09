@@ -64,7 +64,7 @@ export class AuthService {
   }
   
 
-  async loginStudent(loginDto: LoginDto): Promise<{ id: string; accessToken: string; refreshToken: string }> {
+  async loginStudent(loginDto: LoginDto): Promise<{ id: string; accessToken: string; refreshToken: string; email: string; firstName: string }> {
     const { email, password } = loginDto;
     const student = await this.studentModel.findOne({ email });
 
@@ -83,7 +83,12 @@ export class AuthService {
     const accessToken = this.generateAccessToken(payload);
     const refreshToken = this.generateRefreshToken(payload);
 
-    return { id: student._id.toString(), accessToken, refreshToken };
+    return { id: student._id.toString(),
+             accessToken,
+             refreshToken,
+             email: student.email,
+             firstName: student.firstName, 
+            };
   }
 
   async loginGuide(loginDto: LoginDto): Promise<{id: string; accessToken: string; refreshToken: string }> {

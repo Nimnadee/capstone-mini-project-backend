@@ -40,8 +40,8 @@ export class AuthController {
     return this.authService.refreshAccessToken(refreshToken);
   }
 
-  // @Get('/profile')
-  // getProfile(@Request() req) {
-  //   return req.user;
-  // }
+  @Get('/profile')
+  getProfile(@Request() req) {
+    return req.user;
+  }
 }

@@ -1,9 +1,10 @@
 import {Body, Controller, Get, Post,Request} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { StudentRequestDto } from '../model/dto/request/student.dto';
-import { GuideRequestDto } from '../model/dto/request/guide.dto';
+import { StudentRequestDto } from '.././model/dto/request/student.dto';
+import { GuideRequestDto } from '.././model/dto/request/guide.dto';
 import { LoginDto } from './dto/login';
 import { Public } from './auth.decorator';
+import { request } from 'http';
 
 @Controller('/auth')
 export class AuthController {
@@ -31,6 +32,12 @@ export class AuthController {
   @Post('/login/guide')
   loginGuide(@Body() loginDto: LoginDto) {
     return this.authService.loginGuide(loginDto);
+  }
+
+  @Public()
+  @Post('/refresh')
+  refresh(@Body('refreshToken') refreshToken: string) {
+    return this.authService.refreshAccessToken(refreshToken);
   }
 
   @Get('/profile')

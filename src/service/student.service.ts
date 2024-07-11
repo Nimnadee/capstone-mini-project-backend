@@ -25,4 +25,6 @@ export class StudentService {
 		student = await this.studentRepository.create(student);
 		return StudentMapper.studentToStudentResponseDto(student);
 	}
+
+ 
 }

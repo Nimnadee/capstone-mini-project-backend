@@ -2,13 +2,14 @@ import { Guide } from "../model/schema/guide";
 import { GuideResponseDto } from "../model/dto/response/guide.dto";
 import { GuideRequestDto } from "../model/dto/request/guide.dto";
 import { Injectable } from "@nestjs/common";
-
+import { CategoryMapper } from "./category.mapper";
+import { CategoryRepository } from "src/repository/category.repository";
 import {TechnologyRepository} from "../repository/technology.repository";
 import {TechnologyMapper} from "./technology.mapper";
 
 @Injectable()
 export class GuideMapper {
-	constructor(private readonly technologyRepository:TechnologyRepository) {}
+	constructor(private readonly categoryRepository: CategoryRepository,private readonly technologyRepository:TechnologyRepository) {}
 
 	public guideToGuideResponseDto(guide: Guide): GuideResponseDto {
 		const guideResponseDto: GuideResponseDto = new GuideResponseDto();
@@ -21,6 +22,7 @@ export class GuideMapper {
         guideResponseDto.about = guide.about;
         guideResponseDto.milestones = guide.milestones;
         guideResponseDto.SocialMediaLinks = guide.SocialMediaLinks;
+		guideResponseDto.category = CategoryMapper.categoryToCategoryResponseDto(CategoryRepository.find(guide.category));
 		guideResponseDto.technologies = guide.technologies.map(tech => TechnologyMapper.technologyToTechnologyResponseDto(tech));
 
 
@@ -39,6 +41,7 @@ export class GuideMapper {
         guide.about = guideRequestDto.about;
         guide.milestones = guideRequestDto.milestones;
         guide.SocialMediaLinks = guideRequestDto.socialMediaLinks;
+		guide.category = await this.categoryRepository.findById(guideRequestDto.category);
 		guide.technologies = await Promise.all(guideRequestDto.technology.map(async (id) => {
 			return  await this.technologyRepository.findById(id);
 		}));

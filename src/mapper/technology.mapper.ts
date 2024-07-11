@@ -5,6 +5,8 @@ import {Injectable} from "@nestjs/common";
 
 @Injectable()
 export class TechnologyMapper {
+
+    
     public static technologyRequestDtoToTechnology(technologyRequestDto: TechnologyRequestDto) {
         const technology: Technology = new Technology();
         technology.technologyName = technologyRequestDto.technologyName;
@@ -14,7 +16,9 @@ export class TechnologyMapper {
 
     public static technologyToTechnologyResponseDto(technology: Technology): TechnologyResponseDto {
         const technologyResponseDto: TechnologyResponseDto = new TechnologyResponseDto();
-        technologyResponseDto.id = technology._id.toString();
+        if (technology._id) {
+            technologyResponseDto.id = technology._id.toString();
+        }
         technologyResponseDto.technologyType = technology.technologyType;
         technologyResponseDto.technologyName = technology.technologyName;
         return technologyResponseDto;

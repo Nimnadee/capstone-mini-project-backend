@@ -2,7 +2,6 @@ import { Guide } from "../model/schema/guide";
 import { GuideResponseDto } from "../model/dto/response/guide.dto";
 import { GuideRequestDto } from "../model/dto/request/guide.dto";
 import { Injectable } from "@nestjs/common";
-import { CategoryMapper } from "./category.mapper";
 import { CategoryRepository } from "src/repository/category.repository";
 import {TechnologyRepository} from "../repository/technology.repository";
 import {TechnologyMapper} from "./technology.mapper";
@@ -22,7 +21,7 @@ export class GuideMapper {
         guideResponseDto.about = guide.about;
         guideResponseDto.milestones = guide.milestones;
         guideResponseDto.SocialMediaLinks = guide.SocialMediaLinks;
-		guideResponseDto.category = CategoryMapper.categoryToCategoryResponseDto(CategoryRepository.find(guide.category));
+		//guideResponseDto.category = CategoryMapper.categoryToCategoryResponseDto(CategoryRepository.find(guide.category));
 		guideResponseDto.technologies = guide.technologies.map(tech => TechnologyMapper.technologyToTechnologyResponseDto(tech));
 
 

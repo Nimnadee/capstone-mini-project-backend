@@ -1,7 +1,7 @@
-import {Technology} from "../model/schema/technology";
-import {TechnologyResponseDto} from "../model/dto/response/technology.dto";
-import {TechnologyRequestDto} from "../model/dto/request/technology.dto";
-import {Injectable} from "@nestjs/common";
+import { Technology } from "../model/schema/technology";
+import { TechnologyResponseDto } from "../model/dto/response/technology.dto";
+import { TechnologyRequestDto } from "../model/dto/request/technology.dto";
+import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class TechnologyMapper {
@@ -14,7 +14,9 @@ export class TechnologyMapper {
 
     public static technologyToTechnologyResponseDto(technology: Technology): TechnologyResponseDto {
         const technologyResponseDto: TechnologyResponseDto = new TechnologyResponseDto();
-        technologyResponseDto.id = technology._id.toString();
+        if (technology._id) {
+            technologyResponseDto.id = technology._id.toString();
+        }
         technologyResponseDto.technologyType = technology.technologyType;
         technologyResponseDto.technologyName = technology.technologyName;
         return technologyResponseDto;

@@ -22,17 +22,23 @@ export class ProjectRequestController {
         response.set(HttpStatus.OK).send(result);
     }
 
+    @Get("projectId/:projectId")
+    public async getRequestsByProject(@Param('projectId') projectId: string, @Res() response: Response) {
+        const result = await this.projectRequestService.getRequestsByProject(projectId);
+        response.set(HttpStatus.OK).send(result);
+    }
+
 
 //     	@Post()
 // 	public async create(@Body() studentRequestDto: StudentRequestDto, @Res() response: Response) {
 // 		const result = await this.studentService.create(studentRequestDto);
 // 		response.set(HttpStatus.CREATED).send(result);
 // 	}
-    @Get()
-    public async findAll(@Res() response: Response) {
-        const result = await this.projectRequestService.findAll();
-        response.set(HttpStatus.OK).send(result);
-    }
+//     @Get()
+//     public async findAll(@Res() response: Response) {
+//         const result = await this.projectRequestService.findAll();
+//         response.set(HttpStatus.OK).send(result);
+//     }
 
     @Patch(':id/reject')
     public async rejectRequest(@Param('id') id: string, @Res() response: Response){

@@ -8,6 +8,8 @@ import { StudentRequestDto } from '.././model/dto/request/student.dto';
 import { LoginDto } from './dto/login';
 import { Student } from 'src/model/schema/student';
 import { Guide } from 'src/model/schema/guide';
+import { TechnologyRepository } from '../repository/technology.repository';
+import { GuideRequestDto } from 'src/model/dto/request/guide.dto';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +18,8 @@ export class AuthService {
     private studentModel: Model<Student>,
     private jwtService: JwtService,
     @InjectModel(Guide.name)
-    private guideModel: Model<Guide>
+    private guideModel: Model<Guide>,
+    private readonly technologyRepository: TechnologyRepository,
   ) {}
 
   private generateAccessToken(payload: any): string {
@@ -45,8 +48,8 @@ export class AuthService {
     return { message: 'Signup successful, you can login now!' };
   }
 
-    async signUpGuide(signUpDto: StudentRequestDto ): Promise<{ message: string; token?: string }> {
-    const { email, password } = signUpDto;
+    async signUpGuide(signUpDto: GuideRequestDto ): Promise<{ message: string; token?: string }> {
+    const { email, password, technology } = signUpDto;
     const existingUserasGuide = await this.guideModel.findOne({ email });
     const existingUserasStudent = await this.studentModel.findOne({ email });
     if (existingUserasGuide) {
@@ -57,7 +60,13 @@ export class AuthService {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const guide = new this.guideModel({ ...signUpDto, password: hashedPassword });
+
+    const savedTechnologies = await Promise.all(
+      technology.map(async (id) => {
+        return await this.technologyRepository.findById(id); // Adjust this call as per your repository's method
+      })
+    );
+    const guide = new this.guideModel({ ...signUpDto, password: hashedPassword,technologies: savedTechnologies });
 
     await guide.save();
     return { message: 'Signup successful, you can login now!' };

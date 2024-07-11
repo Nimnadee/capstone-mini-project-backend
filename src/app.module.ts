@@ -38,6 +38,7 @@ import {ProjectRequestService} from "./service/project.request.service";
 import {ProjectRequestRepository} from "./repository/project.request.repository";
 import {ProjectRequestMapper} from "./mapper/project.request.mapper";
 import {ProjectRequest, ProjectRequestSchema} from "./model/schema/project.request";
+import { TechnologyModule } from "./technology.module";
 
 @Module({
 	imports: [
@@ -55,10 +56,9 @@ import {ProjectRequest, ProjectRequestSchema} from "./model/schema/project.reque
 			{name: Category.name, schema: CategorySchema},
 			{name: Feedback.name, schema: FeedbackSchema},
 			{name: Guide.name, schema: GuideSchema},
-			{name: Technology.name,schema: TechnologySchema},
 			{name: ProjectRequest.name,schema: ProjectRequestSchema}
 		]),
-		AuthModule,
+		AuthModule,TechnologyModule,
 	],
 	controllers: [
 		StudentController,
@@ -66,7 +66,6 @@ import {ProjectRequest, ProjectRequestSchema} from "./model/schema/project.reque
 		CategoryController,
 		FeedbackController,
 		GuideController,
-		TechnologyController,
 		ProjectRequestController
 	],
 	providers: [
@@ -85,9 +84,6 @@ import {ProjectRequest, ProjectRequestSchema} from "./model/schema/project.reque
 		GuideService,
 		GuideRepository,
 		GuideMapper,
-		TechnologyService,
-		TechnologyRepository,
-		TechnologyMapper,
 		ProjectRequestService,
 		ProjectRequestRepository,
 		ProjectRequestMapper

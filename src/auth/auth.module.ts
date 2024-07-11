@@ -9,6 +9,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
 import { GuideSchema } from 'src/model/schema/guide';
+import { TechnologyRepository } from 'src/repository/technology.repository';
+import { TechnologyModule } from 'src/technology.module';
  
 
 
@@ -40,11 +42,11 @@ import { GuideSchema } from 'src/model/schema/guide';
       global: true,  
     }),
     MongooseModule.forFeature([{name:'Student' , schema: StudentSchema},{name:'Guide' , schema: GuideSchema}])
-  ],
+  ,TechnologyModule,
+ ],
   controllers: [AuthController],
   providers: [
               AuthService,
-            
               {
                 provide: APP_GUARD,
                 useClass: AuthGuard,

@@ -17,20 +17,19 @@ export class ProjectRequestRepository {
     // }
     async findByGuideId(guideId: string): Promise<ProjectRequest[]> {
         console.log(`Fetching requests for guideId: ${guideId}`);
-        const results = await this.projectRequestModel.find({ guideId }).exec();
         // console.log(`Found requests: ${JSON.stringify(results)}`);
-        return results;
+        return await this.projectRequestModel.find({guideId}).exec();
     }
 
     async findByProjectId(projectId: string): Promise<ProjectRequest[]> {
-        console.log(`Fetching requests for guideId: ${projectId}`);
+        console.log(`Fetching requests for projectId: ${projectId}`);
         const results = await this.projectRequestModel.find({ projectId }).exec();
-        // console.log(`Found requests: ${JSON.stringify(results)}`);
+         console.log(`Found requests: ${JSON.stringify(results)}`);
         return results;
     }
-    public async findAll(): Promise<ProjectRequest[]> {
-        return this.projectRequestModel.find();
-    }
+    // public async findAll(): Promise<ProjectRequest[]> {
+    //     return this.projectRequestModel.find();
+    // }
 
     async rejectRequest(requestId: string): Promise<ProjectRequest> {
         const request = await this.projectRequestModel.findById(requestId).exec();
@@ -44,9 +43,7 @@ export class ProjectRequestRepository {
         request.status = RequestStatus.REJECTED;
 
         // Cast to a Mongoose document and save the updated document
-        const updatedRequest = await request.save();
-
-        return updatedRequest;
+        return await request.save();
     }
 
     // async acceptRequest(requestId: string): Promise<ProjectRequest[]> {
@@ -72,7 +69,7 @@ export class ProjectRequestRepository {
     //
     // }
 
-    async acceptRequest(requestId: string): Promise<ProjectRequest[]> {
+    async acceptRequest(requestId: string): Promise<ProjectRequest> {
         const request = await this.projectRequestModel.findById(requestId).exec();
         if (!request) throw new NotFoundException('Request not found');
 
@@ -88,8 +85,8 @@ export class ProjectRequestRepository {
         );
 
          await request.save();
-        const pId =request.projectId;
-        return this.findByProjectId(pId);
+
+        return request;
     }
 
 

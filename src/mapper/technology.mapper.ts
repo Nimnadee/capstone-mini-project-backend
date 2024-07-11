@@ -1,7 +1,7 @@
-import {Technology} from "../model/schema/technology";
-import {TechnologyResponseDto} from "../model/dto/response/technology.dto";
-import {TechnologyRequestDto} from "../model/dto/request/technology.dto";
-import {Injectable} from "@nestjs/common";
+import { Technology } from "../model/schema/technology";
+import { TechnologyResponseDto } from "../model/dto/response/technology.dto";
+import { TechnologyRequestDto } from "../model/dto/request/technology.dto";
+import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class TechnologyMapper {

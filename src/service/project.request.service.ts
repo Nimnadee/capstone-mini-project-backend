@@ -32,20 +32,25 @@ export class ProjectRequestService {
         const projectRequests: ProjectRequest[] = await this.projectRequestRepository.findByGuideId(guideId);
         return projectRequests.map(s => ProjectRequestMapper.projectRequestToProjectRequestResponseDto(s))
     }
-
-    public async findAll(): Promise<ProjectRequestResponseDto[]> {
-        const projectRequests: ProjectRequest[] = await this.projectRequestRepository.findAll();
+    public async getRequestsByProject(projectId: string): Promise<ProjectRequestResponseDto[]> {
+        const projectRequests: ProjectRequest[] = await this.projectRequestRepository.findByProjectId(projectId);
         return projectRequests.map(s => ProjectRequestMapper.projectRequestToProjectRequestResponseDto(s))
     }
+
+    // public async findAll(): Promise<ProjectRequestResponseDto[]> {
+    //     const projectRequests: ProjectRequest[] = await this.projectRequestRepository.findAll();
+    //     return projectRequests.map(s => ProjectRequestMapper.projectRequestToProjectRequestResponseDto(s))
+    // }
 
     public async rejectRequest(requestId: string): Promise<ProjectRequestResponseDto> {
         const projectRequest: ProjectRequest = await this.projectRequestRepository.rejectRequest(requestId);
         return ProjectRequestMapper.projectRequestToProjectRequestResponseDto(projectRequest);
     }
 
-    public async acceptRequest(requestId: string): Promise<ProjectRequestResponseDto[]> {
-        const projectRequests: ProjectRequest[]= await this.projectRequestRepository.acceptRequest(requestId);
-         return projectRequests.map(s => ProjectRequestMapper.projectRequestToProjectRequestResponseDto(s));
+    public async acceptRequest(requestId: string): Promise<ProjectRequestResponseDto> {
+        const projectRequest: ProjectRequest= await this.projectRequestRepository.acceptRequest(requestId);
+       return ProjectRequestMapper.projectRequestToProjectRequestResponseDto(projectRequest);
+         // return projectRequests.map(s => ProjectRequestMapper.projectRequestToProjectRequestResponseDto(s));
 
     }
 

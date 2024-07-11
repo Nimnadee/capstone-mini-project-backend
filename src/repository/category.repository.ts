@@ -5,10 +5,8 @@ import { Category } from "../model/schema/category";
 
 @Injectable()
 export class CategoryRepository {
-	static find(category: Category): Category {
-		throw new Error("Method not implemented.");
-	}
-	
+
+
 	public constructor(@InjectModel(Category.name) private readonly categoryModel: Model<Category>) {}
 
 	public async find(category: Category): Promise<Category> {

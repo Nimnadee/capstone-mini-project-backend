@@ -41,7 +41,7 @@ export class GuideMapper {
         guide.milestones = guideRequestDto.milestones;
         guide.SocialMediaLinks = guideRequestDto.socialMediaLinks;
 		guide.category = await this.categoryRepository.findById(guideRequestDto.category);
-		guide.technologies = await Promise.all(guideRequestDto.technology.map(async (id) => {
+		guide.technologies = await Promise.all(guideRequestDto.technologies.map(async (id) => {
 			return  await this.technologyRepository.findById(id);
 		}));
 

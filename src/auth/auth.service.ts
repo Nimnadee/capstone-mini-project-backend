@@ -23,7 +23,7 @@ export class AuthService {
   ) {}
 
   private generateAccessToken(payload: any): string {
-    return this.jwtService.sign(payload, {secret: process.env.JWT_SECRET, expiresIn: '3s' });
+    return this.jwtService.sign(payload, {secret: process.env.JWT_SECRET, expiresIn: '3h' });
   }
 
   private generateRefreshToken(payload: any): string {
@@ -49,7 +49,7 @@ export class AuthService {
   }
 
     async signUpGuide(signUpDto: GuideRequestDto ): Promise<{ message: string; token?: string }> {
-    const { email, password, technology } = signUpDto;
+    const { email, password, technologies } = signUpDto;
     const existingUserasGuide = await this.guideModel.findOne({ email });
     const existingUserasStudent = await this.studentModel.findOne({ email });
     if (existingUserasGuide) {
@@ -62,8 +62,8 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const savedTechnologies = await Promise.all(
-      technology.map(async (id) => {
-        return await this.technologyRepository.findById(id); // Adjust this call as per your repository's method
+      technologies.map(async (id) => {
+        return await this.technologyRepository.findById(id); 
       })
     );
     const guide = new this.guideModel({ ...signUpDto, password: hashedPassword,technologies: savedTechnologies });

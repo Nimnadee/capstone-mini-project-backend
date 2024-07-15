@@ -35,7 +35,7 @@ export class GuideRequestDto {
 
 	public category: string;
 
-  public technology:string[];
+  public technologies:string[];
 
   public role: string;
 

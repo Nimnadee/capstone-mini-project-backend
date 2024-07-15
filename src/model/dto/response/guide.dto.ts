@@ -21,7 +21,7 @@ export class GuideResponseDto {
 
     public SocialMediaLinks: string;
 
-	public category: CategoryResponseDto;
+	public categories: CategoryResponseDto[];
 
     public technologies:TechnologyResponseDto[];
 

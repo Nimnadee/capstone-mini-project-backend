@@ -8,8 +8,9 @@ export class CategoryMapper {
 
 	public static categoryToCategoryResponseDto(category: Category) {
 		const categoryResponseDto: CategoryResponseDto = new CategoryResponseDto();
-		categoryResponseDto.id =  category._id.toString();
-
+		if (category._id) {
+			categoryResponseDto.id = category._id.toString();
+		}
 		categoryResponseDto.categoryName =  category.categoryName;
 		
 		return categoryResponseDto;

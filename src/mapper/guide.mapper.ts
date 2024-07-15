@@ -5,6 +5,7 @@ import { Injectable } from "@nestjs/common";
 import { CategoryRepository } from "src/repository/category.repository";
 import {TechnologyRepository} from "../repository/technology.repository";
 import {TechnologyMapper} from "./technology.mapper";
+import {CategoryMapper} from "./category.mapper";
 
 @Injectable()
 export class GuideMapper {
@@ -21,6 +22,7 @@ export class GuideMapper {
         guideResponseDto.about = guide.about;
         guideResponseDto.milestones = guide.milestones;
         guideResponseDto.SocialMediaLinks = guide.SocialMediaLinks;
+		guideResponseDto.categories = guide.categories.map(cat=> CategoryMapper.categoryToCategoryResponseDto(cat));
 		//guideResponseDto.category = CategoryMapper.categoryToCategoryResponseDto(CategoryRepository.find(guide.category));
 		guideResponseDto.technologies = guide.technologies.map(tech => TechnologyMapper.technologyToTechnologyResponseDto(tech));
 
@@ -40,10 +42,26 @@ export class GuideMapper {
         guide.about = guideRequestDto.about;
         guide.milestones = guideRequestDto.milestones;
         guide.SocialMediaLinks = guideRequestDto.socialMediaLinks;
-		guide.category = await this.categoryRepository.findById(guideRequestDto.category);
-		guide.technologies = await Promise.all(guideRequestDto.technologies.map(async (id) => {
-			return  await this.technologyRepository.findById(id);
-		}));
+		if (guideRequestDto.category && Array.isArray(guideRequestDto.category)){
+			guide.categories = await Promise.all(guideRequestDto.category.map(async (id) => {
+				return await this.categoryRepository.findById(id);
+			}));
+		} else {
+			// Handle the case where technology is not an array or is undefined
+			guide.categories= []; // Or handle it as appropriate for your application
+			console.warn('Technology data is invalid or not provided');
+		}
+
+		if (guideRequestDto.technology && Array.isArray(guideRequestDto.technology)) {
+			guide.technologies = await Promise.all(guideRequestDto.technology.map(async (id) => {
+				return await this.technologyRepository.findById(id);
+			}));
+		} else {
+			// Handle the case where technology is not an array or is undefined
+			guide.technologies = []; // Or handle it as appropriate for your application
+			console.warn('Technology data is invalid or not provided');
+		}
+
 
 		return guide;
 	}

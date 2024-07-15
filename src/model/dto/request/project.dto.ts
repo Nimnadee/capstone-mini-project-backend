@@ -7,7 +7,7 @@ export class ProjectRequestDto {
 
 	public student: string;
 
-	public category: string;
+	public category: string[];
 
 	public technology:string[];
 

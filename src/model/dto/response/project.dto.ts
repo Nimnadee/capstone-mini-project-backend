@@ -12,7 +12,7 @@ export class ProjectResponseDto {
 
 	public student: StudentResponseDto;
 
-	public category: CategoryResponseDto;
+	public category: CategoryResponseDto[];
 
 	public technologies:TechnologyResponseDto[];
 

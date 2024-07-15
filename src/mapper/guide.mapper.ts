@@ -52,8 +52,8 @@ export class GuideMapper {
 			console.warn('Technology data is invalid or not provided');
 		}
 
-		if (guideRequestDto.technology && Array.isArray(guideRequestDto.technology)) {
-			guide.technologies = await Promise.all(guideRequestDto.technology.map(async (id) => {
+		if (guideRequestDto.technologies && Array.isArray(guideRequestDto.technologies)) {
+			guide.technologies = await Promise.all(guideRequestDto.technologies.map(async (id) => {
 				return await this.technologyRepository.findById(id);
 			}));
 		} else {

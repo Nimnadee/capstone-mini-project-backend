@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { SchemaTypes, Types } from "mongoose";
+
 import { Category } from "./category";
 import {Technology} from "./technology";
+import {Types} from "mongoose";
 
 @Schema({ collection: "guide" })
 export class Guide {
@@ -35,8 +36,8 @@ export class Guide {
 	@Prop({ required: false })
 	public SocialMediaLinks: string;
 
-	@Prop({ required:false, type: SchemaTypes.ObjectId, ref: 'Category'})
-	public category: Category;
+	@Prop({ required:false})
+	public categories: Array<Category>;
 
 	@Prop({ required: true})
 	public technologies:Array<Technology>;

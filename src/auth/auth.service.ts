@@ -74,7 +74,7 @@ export class AuthService {
         return await this.categoryRepository.findById(id);
       })
     )
-    const guide = new this.guideModel({ ...signUpDto, password: hashedPassword,technologies: savedTechnologies });
+    const guide = new this.guideModel({ ...signUpDto, password: hashedPassword,technologies: savedTechnologies ,categories: saveCategories});
 
     await guide.save();
     return { message: 'Signup successful, you can login now!' };

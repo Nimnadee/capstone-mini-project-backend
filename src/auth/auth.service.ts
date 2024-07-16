@@ -10,6 +10,7 @@ import { Student } from 'src/model/schema/student';
 import { Guide } from 'src/model/schema/guide';
 import { TechnologyRepository } from '../repository/technology.repository';
 import { GuideRequestDto } from 'src/model/dto/request/guide.dto';
+import { CategoryRepository } from 'src/repository/category.repository';
 
 @Injectable()
 export class AuthService {
@@ -20,6 +21,7 @@ export class AuthService {
     @InjectModel(Guide.name)
     private guideModel: Model<Guide>,
     private readonly technologyRepository: TechnologyRepository,
+    private readonly categoryRepository: CategoryRepository
   ) {}
 
   private generateAccessToken(payload: any): string {
@@ -49,7 +51,7 @@ export class AuthService {
   }
 
     async signUpGuide(signUpDto: GuideRequestDto ): Promise<{ message: string; token?: string }> {
-    const { email, password, technologies } = signUpDto;
+    const { email, password, technologies, categories } = signUpDto;
     const existingUserasGuide = await this.guideModel.findOne({ email });
     const existingUserasStudent = await this.studentModel.findOne({ email });
     if (existingUserasGuide) {
@@ -66,6 +68,12 @@ export class AuthService {
         return await this.technologyRepository.findById(id); 
       })
     );
+
+    const saveCategories = await Promise.all(
+      categories.map(async (id) => {
+        return await this.categoryRepository.findById(id);
+      })
+    )
     const guide = new this.guideModel({ ...signUpDto, password: hashedPassword,technologies: savedTechnologies });
 
     await guide.save();

@@ -9,8 +9,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
 import { GuideSchema } from 'src/model/schema/guide';
-import { TechnologyRepository } from 'src/repository/technology.repository';
 import { TechnologyModule } from 'src/technology.module';
+import { CategoryModule } from 'src/category.module';
  
 
 
@@ -35,14 +35,14 @@ import { TechnologyModule } from 'src/technology.module';
         return {
           secret: config.get<string>('REFRESH_TOKEN_SECRET'),
           signOptions: {
-            expiresIn: config.get<string | number>('REFRESH_TOKEN_EXPIRES'), // Default to 7 days if not set
+            expiresIn: config.get<string | number>('REFRESH_TOKEN_EXPIRES'), 
           },
         };
       },
       global: true,  
     }),
     MongooseModule.forFeature([{name:'Student' , schema: StudentSchema},{name:'Guide' , schema: GuideSchema}])
-  ,TechnologyModule,
+  ,TechnologyModule,CategoryModule
  ],
   controllers: [AuthController],
   providers: [
@@ -52,7 +52,7 @@ import { TechnologyModule } from 'src/technology.module';
                 useClass: AuthGuard,
               } 
             ],
-  exports:[            
+  exports:[        
             PassportModule,
             JwtModule,  
             AuthService

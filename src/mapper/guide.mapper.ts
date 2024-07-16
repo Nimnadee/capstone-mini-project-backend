@@ -23,7 +23,6 @@ export class GuideMapper {
         guideResponseDto.milestones = guide.milestones;
         guideResponseDto.SocialMediaLinks = guide.SocialMediaLinks;
 		guideResponseDto.categories = guide.categories.map(cat=> CategoryMapper.categoryToCategoryResponseDto(cat));
-		//guideResponseDto.category = CategoryMapper.categoryToCategoryResponseDto(CategoryRepository.find(guide.category));
 		guideResponseDto.technologies = guide.technologies.map(tech => TechnologyMapper.technologyToTechnologyResponseDto(tech));
 
 
@@ -42,8 +41,8 @@ export class GuideMapper {
         guide.about = guideRequestDto.about;
         guide.milestones = guideRequestDto.milestones;
         guide.SocialMediaLinks = guideRequestDto.socialMediaLinks;
-		if (guideRequestDto.category && Array.isArray(guideRequestDto.category)){
-			guide.categories = await Promise.all(guideRequestDto.category.map(async (id) => {
+		if (guideRequestDto.categories && Array.isArray(guideRequestDto.categories)){
+			guide.categories = await Promise.all(guideRequestDto.categories.map(async (id) => {
 				return await this.categoryRepository.findById(id);
 			}));
 		} else {

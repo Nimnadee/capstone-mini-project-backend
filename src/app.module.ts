@@ -27,10 +27,6 @@ import { GuideController } from "./controller/guide.controller";
 import { GuideService } from "./service/guide.service";
 import { GuideRepository } from "./repository/guide.repository";
 import { GuideMapper } from "./mapper/guide.mapper";
-import {TechnologyController} from "./controller/technology.controller";
-import {TechnologyService} from "./service/technology.service";
-import {TechnologyMapper} from "./mapper/technology.mapper";
-import {TechnologyRepository} from "./repository/technology.repository";
 import {Technology, TechnologySchema} from "./model/schema/technology";
 import { AuthModule } from "./auth/auth.module";
 import {ProjectRequestController} from "./controller/project.request.controller";
@@ -39,6 +35,8 @@ import {ProjectRequestRepository} from "./repository/project.request.repository"
 import {ProjectRequestMapper} from "./mapper/project.request.mapper";
 import {ProjectRequest, ProjectRequestSchema} from "./model/schema/project.request";
 import { TechnologyModule } from "./technology.module";
+import { CategoryModule } from "./category.module";
+ 
 
 @Module({
 	imports: [
@@ -56,14 +54,15 @@ import { TechnologyModule } from "./technology.module";
 			{name: Category.name, schema: CategorySchema},
 			{name: Feedback.name, schema: FeedbackSchema},
 			{name: Guide.name, schema: GuideSchema},
-			{name: ProjectRequest.name,schema: ProjectRequestSchema}
+			{name: ProjectRequest.name,schema: ProjectRequestSchema},
 		]),
-		AuthModule,TechnologyModule,
+		AuthModule,
+		TechnologyModule,
+		CategoryModule,
 	],
 	controllers: [
 		StudentController,
 		ProjectController,
-		CategoryController,
 		FeedbackController,
 		GuideController,
 		ProjectRequestController
@@ -75,9 +74,6 @@ import { TechnologyModule } from "./technology.module";
 		ProjectService,
 		ProjectRepository,
 		ProjectMapper,
-		CategoryService,
-		CategoryRepository,
-		CategoryMapper,
 		FeedbackService,
 		FeedbackRepository,
 		FeedbackMapper,
@@ -88,6 +84,6 @@ import { TechnologyModule } from "./technology.module";
 		ProjectRequestRepository,
 		ProjectRequestMapper
 
-	]
+	],
 })
 export class AppModule {}

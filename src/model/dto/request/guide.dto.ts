@@ -33,7 +33,7 @@ export class GuideRequestDto {
   @IsString()
   public socialMediaLinks: string;
 
-	public category: string[];
+	public categories: string[];
 
   public technologies:string[];
 

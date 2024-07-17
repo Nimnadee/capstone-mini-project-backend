@@ -36,6 +36,7 @@ import {ProjectRequestMapper} from "./mapper/project.request.mapper";
 import {ProjectRequest, ProjectRequestSchema} from "./model/schema/project.request";
 import { TechnologyModule } from "./technology.module";
 import { CategoryModule } from "./category.module";
+import { GuideUpdateMapper } from "./mapper/guide.update.mapper";
  
 
 @Module({
@@ -80,6 +81,7 @@ import { CategoryModule } from "./category.module";
 		GuideService,
 		GuideRepository,
 		GuideMapper,
+		GuideUpdateMapper,
 		ProjectRequestService,
 		ProjectRequestRepository,
 		ProjectRequestMapper

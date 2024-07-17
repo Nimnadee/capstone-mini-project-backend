@@ -19,7 +19,7 @@ export class GuideResponseDto {
 
     public milestones: string;
 
-    public SocialMediaLinks: string;
+    public socialMediaLinks: string;
 
 	public categories: CategoryResponseDto[];
 

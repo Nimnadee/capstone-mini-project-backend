@@ -34,7 +34,7 @@ export class Guide {
 	public milestones: string;
 
 	@Prop({ required: false })
-	public SocialMediaLinks: string;
+	public socialMediaLinks: string;
 
 	@Prop({ required:false})
 	public categories: Array<Category>;

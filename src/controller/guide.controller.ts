@@ -3,6 +3,7 @@ import { GuideService } from "../service/guide.service";
 import { Response } from "express";
 import { GuideRequestDto } from "../model/dto/request/guide.dto";
 import { Public } from "src/auth/auth.decorator";
+import { GuideUpdateRequestDto } from "src/model/dto/request/guide.update.dto";
 
 @Controller("/guides")
 @Public()
@@ -29,7 +30,7 @@ export class GuideController {
 	}
 
     @Put("/:id")
-	public async update(@Param() params: any, @Body() guideRequestDto: GuideRequestDto, @Res() response: Response) {
+	public async update(@Param() params: any, @Body() guideRequestDto: GuideUpdateRequestDto, @Res() response: Response) {
 		const result = await this.guideService.update(params.id, guideRequestDto);
 		response.set(HttpStatus.OK).send(result);
 	}

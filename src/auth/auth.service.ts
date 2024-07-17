@@ -61,8 +61,6 @@ export class AuthService {
       return { message: 'You are already signed up as a student. Please log in as a student!' };
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     const savedTechnologies = await Promise.all(
       technologies.map(async (id) => {
         return await this.technologyRepository.findById(id); 
@@ -74,7 +72,8 @@ export class AuthService {
         return await this.categoryRepository.findById(id);
       })
     )
-    const guide = new this.guideModel({ ...signUpDto, password: hashedPassword,technologies: savedTechnologies ,categories: saveCategories});
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const guide = new this.guideModel({ ...signUpDto, password:hashedPassword,technologies: savedTechnologies ,categories: saveCategories});
 
     await guide.save();
     return { message: 'Signup successful, you can login now!' };
@@ -108,7 +107,7 @@ export class AuthService {
             };
   }
 
-  async loginGuide(loginDto: LoginDto): Promise<{id: string; accessToken: string; refreshToken: string }> {
+  async loginGuide(loginDto: LoginDto): Promise<{id: string;  accessToken: string; refreshToken: string;  }> {
     const { email, password } = loginDto;
     const guide = await this.guideModel.findOne({ email });
 
@@ -125,7 +124,7 @@ export class AuthService {
     const accessToken = this.generateAccessToken(payload);
     const refreshToken = this.generateRefreshToken(payload);
 
-    return {id: guide._id.toString(), accessToken, refreshToken };
+    return {id: guide._id.toString(),accessToken,refreshToken,};
   }
 
   async refreshAccessToken(refreshToken: string): Promise<{ accessToken: string }> {

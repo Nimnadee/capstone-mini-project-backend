@@ -1,14 +1,14 @@
 import { Guide } from "../model/schema/guide";
 import { GuideResponseDto } from "../model/dto/response/guide.dto";
-import { GuideRequestDto } from "../model/dto/request/guide.dto";
 import { Injectable } from "@nestjs/common";
 import { CategoryRepository } from "src/repository/category.repository";
 import {TechnologyRepository} from "../repository/technology.repository";
 import {TechnologyMapper} from "./technology.mapper";
 import {CategoryMapper} from "./category.mapper";
+import { GuideUpdateRequestDto } from "src/model/dto/request/guide.update.dto";
 
 @Injectable()
-export class GuideMapper {
+export class GuideUpdateMapper {
 	constructor(private readonly categoryRepository: CategoryRepository,private readonly technologyRepository:TechnologyRepository) {}
 
 	public guideToGuideResponseDto(guide: Guide): GuideResponseDto {
@@ -17,7 +17,7 @@ export class GuideMapper {
 		guideResponseDto.firstName = guide.firstName;
 		guideResponseDto.lastName = guide.lastName;
 		guideResponseDto.email = guide.email;
-        guideResponseDto.ProfilePic = guide.ProfilePic;
+        // guideResponseDto.ProfilePic = guide.ProfilePic;
         guideResponseDto.job = guide.job;
         guideResponseDto.about = guide.about;
         guideResponseDto.milestones = guide.milestones;
@@ -30,13 +30,11 @@ export class GuideMapper {
 		return guideResponseDto;
 	}
 
-	public async guideRequestDtoToGuide(guideRequestDto: GuideRequestDto) {
+	public async guideRequestDtoToGuide(guideRequestDto: GuideUpdateRequestDto) {
 		const guide: Guide = new Guide();
 		guide.firstName = guideRequestDto.firstName;
 		guide.lastName = guideRequestDto.lastName;
-		guide.email = guideRequestDto.email;
-		guide.password = guideRequestDto.password;
-        guide.ProfilePic = guideRequestDto.profilePic;
+        // guide.ProfilePic = guideRequestDto.profilePic;
         guide.job = guideRequestDto.job;
         guide.about = guideRequestDto.about;
         guide.milestones = guideRequestDto.milestones;

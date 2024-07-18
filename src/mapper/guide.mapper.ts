@@ -30,7 +30,7 @@ export class GuideMapper {
 		return guideResponseDto;
 	}
 
-	public async guideRequestDtoToGuide(guideRequestDto: GuideRequestDto) {
+	public  async guideRequestDtoToGuide(guideRequestDto: GuideRequestDto) {
 		const guide: Guide = new Guide();
 		guide.firstName = guideRequestDto.firstName;
 		guide.lastName = guideRequestDto.lastName;

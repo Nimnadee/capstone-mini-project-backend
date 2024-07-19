@@ -11,7 +11,7 @@ export class GuideResponseDto {
 
 	public email: string;
 
-    public ProfilePic: string;
+    public profilePic: string;
 
     public job: string;
 

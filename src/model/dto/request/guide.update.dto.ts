@@ -25,6 +25,8 @@ export class GuideUpdateRequestDto {
   @IsString()
   public socialMediaLinks: string;
 
+  public profilePic: string;
+
   public categories: string[];
 
   public technologies:string[];

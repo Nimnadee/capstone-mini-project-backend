@@ -17,7 +17,7 @@ export class GuideMapper {
 		guideResponseDto.firstName = guide.firstName;
 		guideResponseDto.lastName = guide.lastName;
 		guideResponseDto.email = guide.email;
-        guideResponseDto.ProfilePic = guide.ProfilePic;
+        guideResponseDto.profilePic = guide.profilePic;
         guideResponseDto.job = guide.job;
         guideResponseDto.about = guide.about;
         guideResponseDto.milestones = guide.milestones;
@@ -36,7 +36,7 @@ export class GuideMapper {
 		guide.lastName = guideRequestDto.lastName;
 		guide.email = guideRequestDto.email;
 		guide.password = guideRequestDto.password;
-        guide.ProfilePic = guideRequestDto.profilePic;
+        guide.profilePic = guideRequestDto.profilePic;
         guide.job = guideRequestDto.job;
         guide.about = guideRequestDto.about;
         guide.milestones = guideRequestDto.milestones;

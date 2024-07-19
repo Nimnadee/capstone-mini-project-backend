@@ -22,7 +22,7 @@ export class Guide {
 	public password: string;
 
 	@Prop({ required: false })
-	public ProfilePic: string;
+	public profilePic: string;
 	
 	@Prop({ required: false })
 	public job: string;

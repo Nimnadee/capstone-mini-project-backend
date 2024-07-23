@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from "class-validator";
+import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from "class-validator";
 
 export class GuideRequestDto {
 
@@ -19,24 +19,31 @@ export class GuideRequestDto {
   public password: string;
 
   @IsString()
-  public profilePic: string;
+  @IsOptional()
+  public profilePic?: string;
 
+  @IsOptional()
   @IsString()
-  public job: string;
-
+  public job?: string;
+  
+  @IsOptional()
   @IsString()
-  public about: string;
-
+  public about?: string;
+  
+  @IsOptional()
   @IsString()
-  public milestones: string;
+  public milestones?: string;
 
-  @IsString()
-  public socialMediaLinks: string;
+  @IsOptional()
+  public socialMediaLinks?: string[];
+  
+  @IsOptional()
+	public categories?: string[];
+  
+  @IsOptional()
+  public technologies?:string[];
 
-	public categories: string[];
-
-  public technologies:string[];
-
+  @IsOptional()
   public role: string;
 
 }

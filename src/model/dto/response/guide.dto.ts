@@ -11,7 +11,7 @@ export class GuideResponseDto {
 
 	public email: string;
 
-    public profilePic: string;
+    public profilePic: string ;
 
     public job: string;
 
@@ -19,7 +19,7 @@ export class GuideResponseDto {
 
     public milestones: string;
 
-    public socialMediaLinks: string;
+    public socialMediaLinks: string[];
 
 	public categories: CategoryResponseDto[];
 

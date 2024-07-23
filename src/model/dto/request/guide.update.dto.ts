@@ -10,9 +10,6 @@ export class GuideUpdateRequestDto {
   @IsString()
   public lastName: string;
 
-//   @IsString()
-//   public profilePic: string;
-
   @IsString()
   public job: string;
 
@@ -22,8 +19,7 @@ export class GuideUpdateRequestDto {
   @IsString()
   public milestones: string;
 
-  @IsString()
-  public socialMediaLinks: string;
+  public socialMediaLinks: string[];
 
   public profilePic: string;
 
@@ -31,6 +27,6 @@ export class GuideUpdateRequestDto {
 
   public technologies:string[];
 
-//   public role: string;
+ 
 
 }

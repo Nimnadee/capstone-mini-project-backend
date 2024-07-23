@@ -33,8 +33,8 @@ export class Guide {
 	@Prop({ required: false })
 	public milestones: string;
 
-	@Prop({ required: false })
-	public socialMediaLinks: string;
+	@Prop({ required: false, type: [String] })
+    public socialMediaLinks: string[];
 
 	@Prop({ required:false})
 	public categories: Array<Category>;

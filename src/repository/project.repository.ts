@@ -27,4 +27,8 @@ export class ProjectRepository {
 	public async delete(id: string): Promise<Project>{
 		return this.projectModel.findByIdAndDelete(id);
 	}
+
+	public async findByStudentId(studentId: string): Promise<Project[]> {
+		return this.projectModel.find({ student: studentId });
+	}
 }

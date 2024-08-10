@@ -11,6 +11,13 @@ export class ProjectController {
 
 	constructor(private readonly projectService: ProjectService) {}
 
+    @Get("/:studentId")
+	public async findByStudentId(@Param('studentId') studentId: string, @Res() response: Response) {
+		const result = await this.projectService.findByStudentId(studentId);
+		response.status(HttpStatus.OK).send(result);
+	}
+
+
 	@Get("/:id")
 	public async findById(@Param() params: any, @Res() response: Response) {
 		const result = await this.projectService.findById(params.id);

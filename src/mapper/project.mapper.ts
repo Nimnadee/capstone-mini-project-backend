@@ -22,7 +22,7 @@ export class ProjectMapper {
 		projectResponseDto.title =  project.title;
 		projectResponseDto.summary =  project.summary;
 		projectResponseDto.student =  StudentMapper.studentToStudentResponseDto(await this.studentRepository.find(project.student));
-		 projectResponseDto.category = project.categories.map(cat=> CategoryMapper.categoryToCategoryResponseDto(cat));
+		projectResponseDto.category = project.categories.map(cat=> CategoryMapper.categoryToCategoryResponseDto(cat));
 		projectResponseDto.technologies = project.technologies.map(tech => TechnologyMapper.technologyToTechnologyResponseDto(tech));
 
 		return projectResponseDto;
@@ -56,11 +56,5 @@ export class ProjectMapper {
 	  
 		  return project;
 		}
-	// 	project.technologies = await Promise.all(projectRequestDto.technology.map(async (id) => {
-	// 		const technology = await this.technologyRepository.findById(id);
-	// 		return technology;
-	// 	}));
 
-	// 	return project;
-	// }
 }

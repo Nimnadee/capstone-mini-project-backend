@@ -43,4 +43,9 @@ export class ProjectService {
 		const project: Project = await this.projectRepository.delete(id);
 		return this.projectMapper.projectToProjectResponseDto(project);
 	}
+
+	public async findByStudentId(studentId: string): Promise<ProjectResponseDto[]> {
+		const projects: Project[] = await this.projectRepository.findByStudentId(studentId);
+		return Promise.all(projects.map(project => this.projectMapper.projectToProjectResponseDto(project)));
+	}
 }

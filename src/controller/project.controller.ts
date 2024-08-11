@@ -40,4 +40,9 @@ export class ProjectController {
 		await this.projectService.delete(params.id);
 		response.set(HttpStatus.NO_CONTENT).send({});
 	}
+	@Get("/:id/matchingGuides")
+	public async getMatchingGuide(@Param() params: any, @Res() response: Response) {
+		const result = await this.projectService.getMatchingGuidesByProjectId(params.id);
+		response.set(HttpStatus.OK).send(result);
+	}
 }

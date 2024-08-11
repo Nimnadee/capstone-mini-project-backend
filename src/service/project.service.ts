@@ -127,4 +127,10 @@ export class ProjectService {
 		return technologiesOfGuide.some(guideTechnology=>guideTechnology.id===technology._id.toString());
 
 	}
+
+
+	public async findByStudentId(studentId: string): Promise<ProjectResponseDto[]> {
+		const projects: Project[] = await this.projectRepository.findByStudentId(studentId);
+		return Promise.all(projects.map(project => this.projectMapper.projectToProjectResponseDto(project)));
+	}
 }

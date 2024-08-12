@@ -6,6 +6,7 @@ import { FeedbackMapper } from "../mapper/feedback.mapper";
 import { FeedbackRequestDto } from "../model/dto/request/feedback.dto";
 
 
+
 @Injectable()
 export class FeedbackService {
 
@@ -38,5 +39,15 @@ export class FeedbackService {
 	public async delete(id: string): Promise<FeedbackResponseDto> {
 		const feedback: Feedback = await this.feedbackRepository.delete(id);
 		return this.feedbackMapper.feedbackToFeedbackResponseDto(feedback);
+	}
+
+	public async findAllByGuide(guideId: string): Promise<FeedbackResponseDto[]>{
+		const feedbacks: Feedback[] = await this.feedbackRepository.findAllByGuide(guideId);
+		const feedbackResponseDtos: FeedbackResponseDto[] = [];
+		for (const f of feedbacks) {
+			feedbackResponseDtos.push(await this.feedbackMapper.feedbackToFeedbackResponseDto(f));
+		}
+		return feedbackResponseDtos;
+
 	}
 }

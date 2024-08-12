@@ -10,6 +10,9 @@ import {Technology} from "../model/schema/technology";
 import {GuideService} from "./guide.service";
 import {CategoryResponseDto} from "../model/dto/response/category.dto";
 import {TechnologyResponseDto} from "../model/dto/response/technology.dto";
+import {MatchedGuideResponseDTO} from "../model/dto/response/matched.guide.dto";
+import {FeedbackService} from "./feedback.service";
+import {FeedbackResponseDto} from "../model/dto/response/feedback.dto";
 
 
 
@@ -18,7 +21,7 @@ export class ProjectService {
 
 	constructor(private readonly projectRepository: ProjectRepository,
 	            private readonly projectMapper: ProjectMapper,
-	private readonly guideService: GuideService){}
+	private readonly guideService: GuideService, private readonly feedbackService: FeedbackService){}
 
 	public async findById(id: string): Promise<ProjectResponseDto> {
 		const project: Project = await this.projectRepository.findById(id);
@@ -52,7 +55,7 @@ export class ProjectService {
 		return this.projectMapper.projectToProjectResponseDto(project);
 	}
 
-	public async getMatchingGuidesByProjectId(id: string): Promise<GuideResponseDto[]> {
+	public async getMatchingGuidesByProjectId(id: string): Promise<MatchedGuideResponseDTO[]> {
 		const project:Project = await this.projectRepository.findById(id);
 		const categories:Array<Category>=project.categories;
 		const technologies:Array<Technology>=project.technologies;
@@ -104,16 +107,33 @@ export class ProjectService {
 
 		const sortedKeys = getKeysSortedByValueDesc(matchingGuides);
 		console.log("sortedKeys: ",sortedKeys);
-
-		const matchingGuideObjects: GuideResponseDto[] = [];
+//
+		const matchingGuideObjects: MatchedGuideResponseDTO[] = [];
 		for (const key of sortedKeys) {
 			const guide = await this.guideService.findById(key);
+			const feedBacks = await this.feedbackService.findAllByGuide(guide.id);
 			if (guide) {
-				matchingGuideObjects.push(guide);
+				const matchedGuideResponse: MatchedGuideResponseDTO = new MatchedGuideResponseDTO();
+				matchedGuideResponse.id = guide.id;
+				matchedGuideResponse.fullName = guide.firstName + " " + guide.lastName;
+				matchedGuideResponse.email = guide.email;
+				matchedGuideResponse.rating = this.calcuclateAvarageFeedback(feedBacks);
+				matchedGuideResponse.reviewCount = feedBacks.length;
+				matchingGuideObjects.push(matchedGuideResponse);
 			}
 		}
 
 		return matchingGuideObjects;
+
+	}
+
+	private calcuclateAvarageFeedback(feedbacks: FeedbackResponseDto[]): number{
+		let totalRating = 0;
+		for (const feedback of feedbacks) {
+			totalRating += feedback.rating;
+
+		}
+		return totalRating/feedbacks.length;
 
 	}
 

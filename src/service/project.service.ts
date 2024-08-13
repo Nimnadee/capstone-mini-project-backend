@@ -116,6 +116,7 @@ export class ProjectService {
 				const matchedGuideResponse: MatchedGuideResponseDTO = new MatchedGuideResponseDTO();
 				matchedGuideResponse.id = guide.id;
 				matchedGuideResponse.fullName = guide.firstName + " " + guide.lastName;
+				matchedGuideResponse.job=guide.job;
 				matchedGuideResponse.email = guide.email;
 				matchedGuideResponse.rating = this.calcuclateAvarageFeedback(feedBacks);
 				matchedGuideResponse.reviewCount = feedBacks.length;

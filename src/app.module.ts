@@ -15,10 +15,7 @@ import { ProjectController } from "./controller/project.controller";
 import { ProjectService } from "./service/project.service";
 import { ProjectRepository } from "./repository/project.repository";
 import { ProjectMapper } from "./mapper/project.mapper";
-import { CategoryController } from "./controller/category.controller";
-import { CategoryService } from "./service/category.service";
-import { CategoryRepository } from "./repository/category.repository";
-import { CategoryMapper } from "./mapper/category.mapper";
+
 import { FeedbackController } from "./controller/feedback.controller";
 import { FeedbackService } from "./service/feedback.service";
 import { FeedbackRepository } from "./repository/feedback.repository";
@@ -27,7 +24,7 @@ import { GuideController } from "./controller/guide.controller";
 import { GuideService } from "./service/guide.service";
 import { GuideRepository } from "./repository/guide.repository";
 import { GuideMapper } from "./mapper/guide.mapper";
-import {Technology, TechnologySchema} from "./model/schema/technology";
+
 import { AuthModule } from "./auth/auth.module";
 import {ProjectRequestController} from "./controller/project.request.controller";
 import {ProjectRequestService} from "./service/project.request.service";
@@ -37,6 +34,7 @@ import {ProjectRequest, ProjectRequestSchema} from "./model/schema/project.reque
 import { TechnologyModule } from "./technology.module";
 import { CategoryModule } from "./category.module";
 import { GuideUpdateMapper } from "./mapper/guide.update.mapper";
+import {GuideNewMapper} from "./mapper/guide.new.mapper";
  
 
 @Module({
@@ -82,6 +80,7 @@ import { GuideUpdateMapper } from "./mapper/guide.update.mapper";
 		GuideRepository,
 		GuideMapper,
 		GuideUpdateMapper,
+		GuideNewMapper,
 		ProjectRequestService,
 		ProjectRequestRepository,
 		ProjectRequestMapper

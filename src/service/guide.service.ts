@@ -6,6 +6,8 @@ import { GuideMapper } from "../mapper/guide.mapper";
 import { GuideRequestDto } from "../model/dto/request/guide.dto";
 import { GuideUpdateRequestDto } from "src/model/dto/request/guide.update.dto";
 import { GuideUpdateMapper } from "src/mapper/guide.update.mapper";
+import {GuideNewResponseDTO} from "../model/dto/response/guide.new.dto";
+import {GuideNewMapper} from "../mapper/guide.new.mapper";
 
 @Injectable()
 export class GuideService {
@@ -14,6 +16,7 @@ export class GuideService {
 	constructor(private readonly guideRepository: GuideRepository,
 				private readonly guideUpdateMapper: GuideUpdateMapper,
 				private readonly guideMapper: GuideMapper,
+				private readonly guideNewMapper: GuideNewMapper,
 			    ) {}
 
 	public async findById(id: string): Promise<GuideResponseDto> {
@@ -37,6 +40,17 @@ export class GuideService {
 		guide = await this.guideRepository.update(id, guide);
 		return this.guideUpdateMapper.guideToGuideResponseDto(guide);
 	}
-   
-    
+
+	public async findAllGuidesNew(): Promise<GuideNewResponseDTO[]> {
+		const guides: Guide[] = await this.guideRepository.findAll();
+
+		// Map guides to DTOs and resolve all promises
+		const guideDTOs: GuideNewResponseDTO[] = await Promise.all(
+			guides.map(guide => this.guideNewMapper.guideToGuideNewResponseDto2(guide))
+		);
+
+		return guideDTOs;
+	}
+
+
 }

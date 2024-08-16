@@ -9,6 +9,18 @@ import { GuideUpdateRequestDto } from "src/model/dto/request/guide.update.dto";
 @Public()
 export class GuideController {
 
+	@Get("/get-all")
+	public async findAllGuidesNew(@Res() response: Response) {
+		try {
+			const result = await this.guideService.findAllGuidesNew();
+			// console.log("r:", result);
+			response.status(HttpStatus.OK).json(result);
+		} catch (error) {
+			console.error("Error fetching guides:", error);
+			response.status(HttpStatus.INTERNAL_SERVER_ERROR).send("An error occurred while fetching guides.");
+		}
+	}
+
 	constructor(private readonly guideService: GuideService) {}
 
 	@Get("/:id")
@@ -34,6 +46,8 @@ export class GuideController {
 		const result = await this.guideService.update(params.id, guideRequestDto);
 		response.set(HttpStatus.OK).send(result);
 	}
+
+
 
 }
 

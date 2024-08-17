@@ -1,4 +1,4 @@
-import {Body, Controller, Get, HttpStatus,  Param, Patch, Post, Res} from "@nestjs/common";
+import {Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res} from "@nestjs/common";
 import {Public} from "../auth/auth.decorator";
 import {ProjectRequestRequestDto} from "../model/dto/request/project.request..dto.";
 import {Response} from "express";
@@ -14,6 +14,11 @@ export class ProjectRequestController {
     public async  create(@Body() projectRequestRequestDto: ProjectRequestRequestDto,@Res()  response: Response){
         const result =await this.projectRequestService.create(projectRequestRequestDto);
         response.set(HttpStatus.CREATED).send(result);
+    }
+    @Get()
+    public async findAll(@Res() response: Response) {
+        const result = await this.projectRequestService.findAll();
+        response.set(HttpStatus.OK).send(result);
     }
 
     @Get("/:guideId")
@@ -34,12 +39,12 @@ export class ProjectRequestController {
 // 		const result = await this.studentService.create(studentRequestDto);
 // 		response.set(HttpStatus.CREATED).send(result);
 // 	}
-//     @Get()
-//     public async findAll(@Res() response: Response) {
-//         const result = await this.projectRequestService.findAll();
-//         response.set(HttpStatus.OK).send(result);
-//     }
 
+    @Delete("/:id")
+    public async delete(@Param() params: any, @Res() response: Response) {
+        const result = await this.projectRequestService.delete(params.id);
+        response.set(HttpStatus.NO_CONTENT).send(result);
+    }
     @Patch(':id/reject')
     public async rejectRequest(@Param('id') id: string, @Res() response: Response){
         const result = await this.projectRequestService.rejectRequest(id);

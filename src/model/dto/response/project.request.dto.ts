@@ -6,4 +6,12 @@ export class ProjectRequestResponseDto {
     guideId: string;
     projectId: string;
     status: RequestStatus;
+
+    guideEmail:string;
+
+    projectTitle:string;
+
+    projectSummary:string;
+
+    studentEmail:string;
 }

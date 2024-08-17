@@ -5,6 +5,7 @@ import {NotFoundException} from "@nestjs/common";
 import {RequestStatus} from "../util/project.request.status";
 
 
+
 export class ProjectRequestRepository {
 
     public constructor(@InjectModel(ProjectRequest.name) private readonly projectRequestModel: Model<ProjectRequest>) {}
@@ -27,9 +28,9 @@ export class ProjectRequestRepository {
          console.log(`Found requests: ${JSON.stringify(results)}`);
         return results;
     }
-    // public async findAll(): Promise<ProjectRequest[]> {
-    //     return this.projectRequestModel.find();
-    // }
+    public async findAll(): Promise<ProjectRequest[]> {
+        return this.projectRequestModel.find();
+    }
 
     async rejectRequest(requestId: string): Promise<ProjectRequest> {
         const request = await this.projectRequestModel.findById(requestId).exec();
@@ -88,6 +89,10 @@ export class ProjectRequestRepository {
 
         return request;
     }
-
+    public async delete(id: string): Promise<ProjectRequest> {
+        const delItem = await this.projectRequestModel.findByIdAndDelete(id).exec();
+        console.log("delete(repo)", delItem);
+        return delItem;
+    }
 
 }

@@ -21,20 +21,35 @@ export class ProjectRequestService {
     public async create(projectRequestRequestDto: ProjectRequestRequestDto) {
         let projectRequest: ProjectRequest = ProjectRequestMapper.projectRequestRequestDtoToProjectRequest(projectRequestRequestDto);
         projectRequest = await this.projectRequestRepository.create(projectRequest);
-        return ProjectRequestMapper.projectRequestToProjectRequestResponseDto(projectRequest);
+        return this.projectRequestMapper.projectRequestToProjectRequestResponseDto(projectRequest);
     }
 
-    // public async findAll(): Promise<StudentResponseDto[]> {
-    // 		const students: Student[] = await this.studentRepository.findAll();
-    // 		return students.map(s => StudentMapper.studentToStudentResponseDto(s))
-    // 	}
+
+
+    public async findAll(): Promise<ProjectRequestResponseDto[]> {
+        const projectRequests: ProjectRequest[] = await this.projectRequestRepository.findAll();
+        const responseDTOs: ProjectRequestResponseDto[] = await Promise.all(
+            projectRequests.map(s => this.projectRequestMapper.projectRequestToProjectRequestResponseDto(s))
+        );
+        return responseDTOs;
+    }
+
+
     public async getRequestsByGuide(guideId: string): Promise<ProjectRequestResponseDto[]> {
         const projectRequests: ProjectRequest[] = await this.projectRequestRepository.findByGuideId(guideId);
-        return projectRequests.map(s => ProjectRequestMapper.projectRequestToProjectRequestResponseDto(s))
+        const responseDTOs: ProjectRequestResponseDto[] = await Promise.all(
+            projectRequests.map(s => this.projectRequestMapper.projectRequestToProjectRequestResponseDto(s))
+        )
+        return responseDTOs;
     }
-    public async getRequestsByProject(projectId: string): Promise<ProjectRequestResponseDto[]> {
+
+
+    public async getRequestsByProject(projectId: string):Promise<ProjectRequestResponseDto[]> {
         const projectRequests: ProjectRequest[] = await this.projectRequestRepository.findByProjectId(projectId);
-        return projectRequests.map(s => ProjectRequestMapper.projectRequestToProjectRequestResponseDto(s))
+        const responseDTOs: ProjectRequestResponseDto[] = await Promise.all(
+            projectRequests.map(s => this.projectRequestMapper.projectRequestToProjectRequestResponseDto(s))
+        )
+        return responseDTOs;
     }
 
     // public async findAll(): Promise<ProjectRequestResponseDto[]> {
@@ -44,14 +59,24 @@ export class ProjectRequestService {
 
     public async rejectRequest(requestId: string): Promise<ProjectRequestResponseDto> {
         const projectRequest: ProjectRequest = await this.projectRequestRepository.rejectRequest(requestId);
-        return ProjectRequestMapper.projectRequestToProjectRequestResponseDto(projectRequest);
+        return this.projectRequestMapper.projectRequestToProjectRequestResponseDto(projectRequest);
     }
 
     public async acceptRequest(requestId: string): Promise<ProjectRequestResponseDto> {
         const projectRequest: ProjectRequest= await this.projectRequestRepository.acceptRequest(requestId);
-       return ProjectRequestMapper.projectRequestToProjectRequestResponseDto(projectRequest);
+       return this.projectRequestMapper.projectRequestToProjectRequestResponseDto(projectRequest);
          // return projectRequests.map(s => ProjectRequestMapper.projectRequestToProjectRequestResponseDto(s));
 
     }
+
+    public async delete(id: string): Promise<ProjectRequestResponseDto> {
+        const projectRequest: ProjectRequest = await this.projectRequestRepository.delete(id);
+        console.log("Raw deleted project request:", projectRequest);
+
+       const delItem= await this.projectRequestMapper.projectRequestToProjectRequestResponseDto(projectRequest);
+        console.log("delete:(service) ", delItem);
+        return delItem;
+    }
+
 
 }

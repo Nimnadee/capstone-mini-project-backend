@@ -12,6 +12,7 @@ export class GuideMapper {
 	constructor(private readonly categoryRepository: CategoryRepository,private readonly technologyRepository:TechnologyRepository) {}
 
 	public guideToGuideResponseDto(guide: Guide): GuideResponseDto {
+
 		const guideResponseDto: GuideResponseDto = new GuideResponseDto();
 		guideResponseDto.id = guide._id.toString();
 		guideResponseDto.firstName = guide.firstName;

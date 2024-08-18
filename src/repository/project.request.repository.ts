@@ -16,11 +16,22 @@ export class ProjectRequestRepository {
     // async findByGuideId(guideId: string): Promise<ProjectRequest[]> {
     //     return this.projectRequestModel.find({ guideId }).exec();
     // }
-    async findByGuideId(guideId: string): Promise<ProjectRequest[]> {
+
+
+
+    public async findByGuideId(guideId: string): Promise<ProjectRequest[]> {
         console.log(`Fetching requests for guideId: ${guideId}`);
-        // console.log(`Found requests: ${JSON.stringify(results)}`);
-        return await this.projectRequestModel.find({guideId}).exec();
+
+        // Fetch all project requests with the given guideId
+        const requests = await this.projectRequestModel.find({ guideId }).exec();
+
+        // Filter the requests to only include those with a status of "pending"
+        const pendingRequests = requests.filter(r => r.status === 'pending');
+
+        // Return the filtered array
+        return pendingRequests;
     }
+
 
     async findByProjectId(projectId: string): Promise<ProjectRequest[]> {
         console.log(`Fetching requests for projectId: ${projectId}`);

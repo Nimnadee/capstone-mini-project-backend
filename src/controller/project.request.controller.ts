@@ -21,6 +21,8 @@ export class ProjectRequestController {
         response.set(HttpStatus.OK).send(result);
     }
 
+
+    //get project requests by guideID( returns project requests that status=== pending only)
     @Get("/:guideId")
     public async getRequestsByGuide(@Param('guideId') guideId: string, @Res() response: Response) {
         const result = await this.projectRequestService.getRequestsByGuide(guideId);

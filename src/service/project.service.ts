@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable} from "@nestjs/common";
 import { ProjectRepository } from "../repository/project.repository";
 import { ProjectResponseDto } from "../model/dto/response/project.dto";
 import { Project } from "../model/schema/project";
@@ -16,9 +16,10 @@ import {FeedbackResponseDto} from "../model/dto/response/feedback.dto";
 
 
 
+
+
 @Injectable()
 export class ProjectService {
-
 	constructor(private readonly projectRepository: ProjectRepository,
 	            private readonly projectMapper: ProjectMapper,
 	private readonly guideService: GuideService, private readonly feedbackService: FeedbackService){}
@@ -154,4 +155,8 @@ export class ProjectService {
 		const projects: Project[] = await this.projectRepository.findByStudentId(studentId);
 		return Promise.all(projects.map(project => this.projectMapper.projectToProjectResponseDto(project)));
 	}
+
+
+
+
 }

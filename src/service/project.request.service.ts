@@ -77,6 +77,33 @@ export class ProjectRequestService {
         console.log("delete:(service) ", delItem);
         return delItem;
     }
+    public async getFinalStatusOfProject(projectId: string): Promise<string> {
+        const projectRequests: ProjectRequestResponseDto[] = await this.getRequestsByProject(projectId);
 
 
+
+        let totalRejectedCount: number = 0;
+        if(projectRequests.length===0){
+            return "noRequests";
+        }
+
+       else{
+            for (let i = 0; i < projectRequests.length; i++) {
+                const req = projectRequests[i];
+                console.log("req.status =", req.status);
+
+                if (req.status === 'accepted') {
+                    return 'accepted';
+                } else if (req.status === 'rejected') {
+                    totalRejectedCount++;
+                }
+            }
+
+            if (totalRejectedCount === projectRequests.length) {
+                return 'rejected';
+            }
+
+            return 'pending';
+        }
+    }
 }

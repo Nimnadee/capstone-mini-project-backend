@@ -58,4 +58,10 @@ export class ProjectRequestController {
         const result = await this.projectRequestService.acceptRequest(id);
         response.set(HttpStatus.OK).send(result);
     }
+    @Get("/:id/projectFinalStatus")
+    public async getFinalStatusOfProject(@Param() params: any, @Res() response: Response) {
+        const result= await this.projectRequestService.getFinalStatusOfProject(params.id);
+        response.set(HttpStatus.OK).send(result.toString());
+
+    }
 }

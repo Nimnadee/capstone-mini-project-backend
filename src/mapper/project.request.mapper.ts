@@ -13,7 +13,6 @@ export class ProjectRequestMapper {
     }
 
     public async projectRequestToProjectRequestResponseDto(projectRequest: ProjectRequest) {
-        console.log("Fetching guide with ID:", projectRequest.guideId);
         const guide = await this.guideService.findById(projectRequest.guideId.toString());
         const project = await this.projectService.findById(projectRequest.projectId);
         const projectRequestResponseDto: ProjectRequestResponseDto = new ProjectRequestResponseDto();

@@ -6,6 +6,7 @@ import {ProjectRequestRepository} from "../repository/project.request.repository
 import {ProjectRequestResponseDto} from "../model/dto/response/project.request.dto";
 
 
+
 @Injectable()
 export class ProjectRequestService {
     constructor(private readonly projectRequestMapper: ProjectRequestMapper,
@@ -77,6 +78,9 @@ export class ProjectRequestService {
         console.log("delete:(service) ", delItem);
         return delItem;
     }
+
+
+
     public async getFinalStatusOfProject(projectId: string): Promise<string> {
         const projectRequests: ProjectRequestResponseDto[] = await this.getRequestsByProject(projectId);
 
@@ -106,4 +110,41 @@ export class ProjectRequestService {
             return 'pending';
         }
     }
+    public async getAcceptedGuideIdByProjectId(projectID: string):Promise<string>{
+        const projectRequests: ProjectRequestResponseDto[] = await this.getRequestsByProject(projectID);
+
+
+
+                for (let i = 0; i < projectRequests.length; i++) {
+                    const req = projectRequests[i];
+                    console.log("req.status =", req.status);
+
+                    if (req.status === 'accepted') {
+                        return req.guideId;
+                    }
+                    else{
+                        return null;
+                    }
+                }
+
+    }
+
+    public async getRejectedGuideIdsByProjectId(projectID: string): Promise<string[]> {
+        const projectRequests: ProjectRequestResponseDto[] = await this.getRequestsByProject(projectID);
+        const rejectedGuides: string[] = []; // Initialize the array
+
+
+        for (let i = 0; i < projectRequests.length; i++) {
+            const req = projectRequests[i];
+            console.log("req.status =", req.status);
+
+            if (req.status === 'rejected') {
+                rejectedGuides.push(req.guideId);
+            }
+            else {return null;}
+        }
+
+        return rejectedGuides;
+    }
+
 }

@@ -64,4 +64,18 @@ export class ProjectRequestController {
         response.set(HttpStatus.OK).send(result.toString());
 
     }
+    @Get("/:id/acceptedGuideID")
+    public async getAcceptedGuideIdByProjectId(@Param() params: any, @Res() response: Response) {
+        const result= await this.projectRequestService.getAcceptedGuideIdByProjectId(params.id);
+        response.set(HttpStatus.OK).send(result.toString());
+
+    }
+    @Get("/:id/rejectedGuidesIds")
+    public async getRejectedGuideIdsByProjectId(@Param() params: any, @Res() response: Response) {
+        const result= await this.projectRequestService.getRejectedGuideIdsByProjectId(params.id);
+        console.log("result",result);
+        response.set(HttpStatus.OK).send(result);
+
+    }
+
 }

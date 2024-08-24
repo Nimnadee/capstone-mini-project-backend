@@ -50,7 +50,7 @@ export class AuthService {
     return { message: 'Signup successful, you can login now!' };
   }
 
-    async signUpGuide(signUpDto: GuideRequestDto ): Promise<{ message: string; token?: string }> {
+    async signUpGuide(signUpDto: GuideRequestDto ): Promise<{ message: string; token?: string ; id?: string}> {
     const { email, password, technologies, categories } = signUpDto;
     const existingUserasGuide = await this.guideModel.findOne({ email });
     const existingUserasStudent = await this.studentModel.findOne({ email });
@@ -76,7 +76,9 @@ export class AuthService {
     const guide = new this.guideModel({ ...signUpDto, password:hashedPassword,technologies: savedTechnologies ,categories: saveCategories});
 
     await guide.save();
-    return { message: 'Signup successful, you can login now!' };
+    return { id: guide._id.toString(), message:'Singup Successfull!',
+        
+     };
   }
   
 

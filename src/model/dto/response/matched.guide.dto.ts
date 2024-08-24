@@ -5,7 +5,4 @@ export class MatchedGuideResponseDTO{
     public rating: number;
     public reviewCount: number;
     public job: string;
-
-
-
 }

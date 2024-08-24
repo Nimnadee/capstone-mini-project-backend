@@ -11,7 +11,8 @@ export class GuideRequestDto {
   public lastName: string;
 
   @IsNotEmpty()
-  @IsEmail() public email: string;
+  @IsEmail()
+  public email: string;
 
   @IsNotEmpty()
   @IsString()

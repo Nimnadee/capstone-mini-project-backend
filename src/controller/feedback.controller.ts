@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Res } from "@nestjs/common";
 import { Response } from "express";
 import { FeedbackService } from "../service/feedback.service";
 import { FeedbackRequestDto } from "../model/dto/request/feedback.dto";

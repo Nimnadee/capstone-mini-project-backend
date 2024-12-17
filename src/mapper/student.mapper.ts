@@ -7,6 +7,10 @@ import { Injectable } from "@nestjs/common";
 export class StudentMapper {
 
 	public static studentToStudentResponseDto(student: Student) {
+		if (!student) {
+			console.error('Student is null in studentToStudentResponseDto');
+			return null;
+		}
 		const studentResponseDto: StudentResponseDto = new StudentResponseDto();
 		studentResponseDto.id = student._id.toString();
 		studentResponseDto.firstName = student.firstName;

@@ -13,6 +13,11 @@ export class GuideNewMapper {
 	constructor(private readonly feedbackService: FeedbackService) {}
 
 	public static guideToGuideNewResponseDto(guide: Guide): GuideResponseDto {
+
+		if (!guide) {
+			console.error('Guide is null in guideToGuideNewResponseDto');
+			return null; // Return null or handle this case as per your requirements.
+		}
 		const guideResponseDto: GuideResponseDto = new GuideResponseDto();
 		guideResponseDto.id = guide._id.toString();
 		guideResponseDto.firstName = guide.firstName;

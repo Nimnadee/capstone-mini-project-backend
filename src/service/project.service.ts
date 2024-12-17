@@ -79,7 +79,6 @@ export class ProjectService {
 				}
 			}
 		}
-
 		for(let i=0;i<technologies.length;i++){
 			const technology:Technology=technologies[i];
 			for(let j=0;j<guides.length;j++){
@@ -95,8 +94,10 @@ export class ProjectService {
 				}
 			}
 		}
-
 		console.log("matchingGuides: ",matchingGuides);
+
+
+
 		function getKeysSortedByValueDesc(map: Map<string, number>): string[] {
 			const sortedArray = Array.from(map.entries()).sort((a, b) => b[1] - a[1]);
 			console.log("decOrder: ", sortedArray);
@@ -108,7 +109,9 @@ export class ProjectService {
 
 		const sortedKeys = getKeysSortedByValueDesc(matchingGuides);
 		console.log("sortedKeys: ",sortedKeys);
-//
+
+
+
 		const matchingGuideObjects: MatchedGuideResponseDTO[] = [];
 		for (const key of sortedKeys) {
 			const guide = await this.guideService.findById(key);
@@ -124,9 +127,7 @@ export class ProjectService {
 				matchingGuideObjects.push(matchedGuideResponse);
 			}
 		}
-
 		return matchingGuideObjects;
-
 	}
 
 	private calcuclateAvarageFeedback(feedbacks: FeedbackResponseDto[]): number{
